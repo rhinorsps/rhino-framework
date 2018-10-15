@@ -1,6 +1,4 @@
-package org.rhino.rsps.net.io;
-
-import org.rhino.rsps.net.io.channel.Channel;
+package org.rhino.rsps.net.io.stream;
 
 import java.io.IOException;
 

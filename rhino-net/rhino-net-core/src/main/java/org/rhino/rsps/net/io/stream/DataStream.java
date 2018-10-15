@@ -1,4 +1,4 @@
-package org.rhino.rsps.net.io;
+package org.rhino.rsps.net.io.stream;
 
 import java.io.IOException;
 

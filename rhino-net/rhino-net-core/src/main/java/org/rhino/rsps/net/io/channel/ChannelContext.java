@@ -1,6 +1,6 @@
 package org.rhino.rsps.net.io.channel;
 
-import org.rhino.rsps.net.io.OutputStreamFactory;
+import org.rhino.rsps.net.io.stream.OutputStreamFactory;
 
 /**
  * The channel context is the context in which the channel is made. A channel can have more than one context

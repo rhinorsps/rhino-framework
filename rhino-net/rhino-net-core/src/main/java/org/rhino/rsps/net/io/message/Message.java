@@ -1,6 +1,6 @@
 package org.rhino.rsps.net.io.message;
 
-import org.rhino.rsps.net.io.InputStream;
+import org.rhino.rsps.net.io.stream.InputStream;
 
 import java.io.IOException;
 
