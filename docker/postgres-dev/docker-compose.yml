@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  postgres:
+    restart: always
+    image: postgres:10
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=scyther
+      - POSTGRES_DB=rhino
+    volumes:
+      - /var/lib/postgresql/data
+    ports:
+      - "5432:5432"
