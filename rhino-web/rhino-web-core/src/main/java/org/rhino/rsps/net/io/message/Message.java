@@ -1,6 +1,6 @@
 package org.rhino.rsps.net.io.message;
 
-import org.rhino.rsps.net.io.channel.Channel;
+import org.rhino.rsps.net.io.InputStream;
 
 import java.io.IOException;
 
@@ -23,6 +23,6 @@ public interface Message {
      * @return
      * @throws IOException thrown when the packet has no payload
      */
-    Payload getPayload() throws IOException;
+    InputStream getPayload() throws IOException;
 
 }
