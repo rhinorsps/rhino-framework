@@ -11,7 +11,7 @@ public interface Session {
      *
      * @return
      */
-    Promise<?> read(Message message) throws IOException;
+    Promise<Session> read(Object message) throws IOException;
 
     /**
      *
@@ -19,7 +19,7 @@ public interface Session {
      * @return
      * @throws IOException
      */
-    Promise<?> write(Object object) throws IOException;
+    Promise<Session> write(Object object) throws IOException;
 
     /**
      *

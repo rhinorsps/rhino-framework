@@ -13,7 +13,7 @@ public class NettyInitializer extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel channel) throws Exception {
         channel.pipeline()
 
-                .addLast("session", new RS2SessionHandler())
+                .addLast("session", new RS2SessionHandler(null))
 
                 /*
                  * Disconnect channels that have been idle for 30 seconds or
