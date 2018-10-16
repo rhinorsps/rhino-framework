@@ -1,21 +1,21 @@
-package org.rhino.rsps.net.io.message;
+package org.rhino.rsps.net.io;
 
 import org.rhino.rsps.net.io.stream.InputStream;
 
 import java.io.IOException;
 
 /**
- * Represents a raw packet
+ * A read-only message.
  */
 public interface Message {
 
     /**
-     * Gets the packet's header
+     * The opcode of the packet
      *
      * @return
-     * @throws IOException thrown when no header is present
+     * @throws IOException
      */
-    Header getHeader() throws IOException;
+    int getOpcode() throws IOException;
 
     /**
      * Gets the packet's payload

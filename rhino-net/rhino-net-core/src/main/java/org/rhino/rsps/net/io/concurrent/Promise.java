@@ -19,8 +19,23 @@ public interface Promise<T> {
     Promise<T> remove(Subscriber<T> subscriber);
 
     /**
-     * Cancels the current promise and sends a fail notification to all of the subscribers
+     * Called when the promise has failed to execute
+     * @return
+     */
+    Promise<T> fail(Throwable t);
+
+    /**
+     *
+     * @param result
+     * @return
+     */
+    Promise<T> fire(T result) throws Exception;
+
+    /**
+     * Cancels the promise
+     *
      * @return self
+     *
      * @throws Exception
      */
     Promise<T> cancel() throws Exception;
