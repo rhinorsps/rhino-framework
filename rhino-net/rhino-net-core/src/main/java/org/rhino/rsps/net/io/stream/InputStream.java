@@ -53,7 +53,7 @@ public interface InputStream extends DataStream {
      * @throws IOException
      */
     default int readShort() throws IOException {
-        return this.readShort(Endianness.LITTLE_ENDIAN);
+        return this.readShort(DEFAULT_ENDIANESS);
     }
 
     /**
@@ -63,7 +63,7 @@ public interface InputStream extends DataStream {
      * @throws IOException
      */
     default int readMedium() throws IOException {
-        return this.readMedium(Endianness.LITTLE_ENDIAN);
+        return this.readMedium(DEFAULT_ENDIANESS);
     }
 
     /**
@@ -73,7 +73,7 @@ public interface InputStream extends DataStream {
      * @throws IOException
      */
     default int readInteger() throws IOException {
-        return this.readInteger(Endianness.LITTLE_ENDIAN);
+        return this.readInteger(DEFAULT_ENDIANESS);
     }
 
     /**
@@ -83,7 +83,7 @@ public interface InputStream extends DataStream {
      * @throws IOException
      */
     default long readLong() throws IOException {
-        return this.readLong(Endianness.LITTLE_ENDIAN);
+        return this.readLong(DEFAULT_ENDIANESS);
     }
 
 }
