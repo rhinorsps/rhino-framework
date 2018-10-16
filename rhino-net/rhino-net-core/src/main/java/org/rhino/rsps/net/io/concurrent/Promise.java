@@ -1,43 +1,34 @@
 package org.rhino.rsps.net.io.concurrent;
 
+import java.util.function.Consumer;
+
 public interface Promise<T> {
 
     /**
-     * Adds a new subscriber to the
-     * @param subscriber
+     * Adds a new consumer to the
+     * @param consumer
      * @return self
      */
-    Promise<T> subscribe(Subscriber<T> subscriber);
+    Promise<T> success(Consumer<T> consumer);
 
     /**
-     * Removes a subscriber from this promise
      *
-     * @param subscriber
-     * @throws NullPointerException when the subscriber cannot be found
-     * @return self
+     * @param consumer
+     * @return
      */
-    Promise<T> remove(Subscriber<T> subscriber);
+    Promise<T> error(Consumer<Throwable> consumer);
 
     /**
      * Called when the promise has failed to execute
      * @return
      */
-    Promise<T> fail(Throwable t);
+    void fail(Throwable t);
 
     /**
      *
      * @param result
      * @return
      */
-    Promise<T> fire(T result) throws Exception;
-
-    /**
-     * Cancels the promise
-     *
-     * @return self
-     *
-     * @throws Exception
-     */
-    Promise<T> cancel() throws Exception;
+    void fulfill(T result) throws Exception;
 
 }
