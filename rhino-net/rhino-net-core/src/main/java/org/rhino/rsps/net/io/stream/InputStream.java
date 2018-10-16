@@ -11,7 +11,7 @@ public interface InputStream extends DataStream {
      * @return
      * @throws IOException
      */
-    int readByte(Endianness endianness) throws IOException;
+    int readByte() throws IOException;
 
     /**
      * Reads a short (2 bytes) with the given {@link Endianness}
@@ -45,16 +45,6 @@ public interface InputStream extends DataStream {
      * @throws IOException
      */
     long readLong(Endianness endianness) throws IOException;
-
-    /**
-     * Helper method to read a byte with default {@link Endianness} (little-endian)
-     *
-     * @return
-     * @throws IOException
-     */
-    default int readByte() throws IOException {
-        return this.readByte(Endianness.LITTLE_ENDIAN);
-    }
 
     /**
      * Helper method to read a short with default {@link Endianness} (little-endian)

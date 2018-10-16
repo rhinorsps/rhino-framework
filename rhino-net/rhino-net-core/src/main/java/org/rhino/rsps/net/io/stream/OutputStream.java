@@ -15,7 +15,7 @@ public interface OutputStream extends DataStream {
      * @return
      * @throws IOException
      */
-    void writeByte(int value, Endianness endianness) throws IOException;
+    void writeByte(int value) throws IOException;
 
     /**
      * Writes a short (2 bytes) with the given {@link Endianness}
@@ -49,16 +49,6 @@ public interface OutputStream extends DataStream {
      * @throws IOException
      */
     void writeLong(long value, Endianness endianness) throws IOException;
-
-    /**
-     * Helper method write a byte with default endianness (LITTLE_ENDIAN)
-     *
-     * @param value
-     * @throws IOException
-     */
-    default void writeByte(int value) throws IOException {
-        this.writeByte(value, Endianness.LITTLE_ENDIAN);
-    }
 
     /**
      * Helper method write a short with default endianness (LITTLE_ENDIAN)
