@@ -8,6 +8,13 @@ import java.io.IOException;
 public interface Session {
 
     /**
+     * Gets the session context
+     * 
+     * @return
+     */
+    SessionContext getSessionContext();
+
+    /**
      *
      * @return
      */
