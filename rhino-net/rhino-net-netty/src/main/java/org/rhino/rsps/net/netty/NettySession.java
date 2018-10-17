@@ -1,20 +1,25 @@
 package org.rhino.rsps.net.netty;
 
 import io.netty.channel.Channel;
-import io.netty.util.concurrent.GenericFutureListener;
+import org.rhino.rsps.net.session.AbstractSession;
 import org.rhino.rsps.net.session.Session;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
-public class NettySession implements Session {
+public class NettySession extends AbstractSession {
 
     /**
      * The Netty {@link Channel}
      */
     private final Channel channel;
 
+    /**
+     * creates a new session with the netty channel and a default context
+     * @param channel
+     */
     public NettySession(Channel channel) {
+        super();
         this.channel = channel;
     }
 

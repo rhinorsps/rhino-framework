@@ -4,7 +4,10 @@ import java.io.IOException;
 
 interface DataStream {
 
-    Endianness DEFAULT_ENDIANESS = Endianness.BIG_ENDIAN;
+    /**
+     * The default endianness should none be given
+     */
+    Endianness DEFAULT_ENDIANNESS = Endianness.BIG_ENDIAN;
 
     /**
      * amount of data available

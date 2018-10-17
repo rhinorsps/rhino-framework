@@ -12,4 +12,11 @@ public interface Session {
      */
     CompletableFuture<Session> destroy() throws IOException;
 
+    /**
+     * Gets the session context
+     *
+     * @return
+     */
+    SessionContext getSessionContext();
+
 }
