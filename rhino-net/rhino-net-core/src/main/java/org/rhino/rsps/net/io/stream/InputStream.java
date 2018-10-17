@@ -7,7 +7,6 @@ public interface InputStream extends DataStream {
     /**
      * Reads a byte with the given {@link Endianness}
      *
-     * @param endianness
      * @return
      * @throws IOException
      */
