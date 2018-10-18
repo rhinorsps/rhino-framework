@@ -27,8 +27,8 @@ public class NettyMessageWriter {
         return this;
     }
 
-    public NettyMessageWriter length(MessageTemplate template, int length) {
-        switch (template.getType()) {
+    public NettyMessageWriter length(MessageTemplate.Type type, int length) {
+        switch (type) {
             case VARIABLE_BYTE:
                 buffer.writeByte(length);
                 break;
