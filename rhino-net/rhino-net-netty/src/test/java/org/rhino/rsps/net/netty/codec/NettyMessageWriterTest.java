@@ -3,28 +3,25 @@ package org.rhino.rsps.net.netty.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.embedded.EmbeddedChannel;
-import org.junit.Before;
 import org.junit.Test;
-import org.rhino.rsps.net.Controller;
 import org.rhino.rsps.net.io.message.MessageTemplate;
 import org.rhino.rsps.net.netty.message.NettyMessageWriter;
 import org.rhino.rsps.net.netty.stream.ByteBufInputStream;
 
 import java.io.IOException;
-import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class RS2GameCodecTest {
+public class NettyMessageWriterTest {
 
     private static final int TEST_OPCODE = 15;
+    private static final byte[] TEST_PAYLOAD = new byte[]{
+            1, 2, 3, 4, 5
+    };
 
     @Test
-    public void testDecode() throws IOException {
-        ByteBuf testPayload = Unpooled.wrappedBuffer(new byte[] {
-                1, 2, 3, 4, 5
-        });
+    public void testWriterWithFixedSize() throws IOException {
+        ByteBuf testPayload = Unpooled.wrappedBuffer(TEST_PAYLOAD);
 
         ByteBuf output = NettyMessageWriter.create(Unpooled.buffer())
                 .opcode(TEST_OPCODE)
@@ -37,10 +34,8 @@ public class RS2GameCodecTest {
     }
 
     @Test
-    public void testDecodeWithVariableLengthByte() throws IOException {
-        ByteBuf testPayload = Unpooled.wrappedBuffer(new byte[] {
-                1, 2, 3, 4, 5
-        });
+    public void testWriterWithVariableSizeByte() throws IOException {
+        ByteBuf testPayload = Unpooled.wrappedBuffer(TEST_PAYLOAD);
 
         ByteBuf output = NettyMessageWriter.create(Unpooled.buffer())
                 .opcode(TEST_OPCODE)
@@ -54,10 +49,8 @@ public class RS2GameCodecTest {
     }
 
     @Test
-    public void testDecodeWithVariableLengthShort() throws IOException {
-        ByteBuf testPayload = Unpooled.wrappedBuffer(new byte[] {
-                1, 2, 3, 4, 5
-        });
+    public void testWriterWithVariableSizeShort() throws IOException {
+        ByteBuf testPayload = Unpooled.wrappedBuffer(TEST_PAYLOAD);
 
         ByteBuf output = NettyMessageWriter.create(Unpooled.buffer())
                 .opcode(TEST_OPCODE)
@@ -70,5 +63,21 @@ public class RS2GameCodecTest {
         assertEquals(3 + testPayload.capacity(), output.readableBytes());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testIllegalPayload() throws IOException {
+        ByteBufInputStream testPayload = new ByteBufInputStream(Unpooled.wrappedBuffer(TEST_PAYLOAD));
+        testPayload.close();
+        NettyMessageWriter.create(Unpooled.buffer()).payload(testPayload);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testNegativeOpcode() {
+        NettyMessageWriter.create(Unpooled.buffer()).opcode(-1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIllegalLength() {
+        NettyMessageWriter.create(Unpooled.buffer()).length(MessageTemplate.Type.VARIABLE_BYTE, -1);
+    }
 
 }

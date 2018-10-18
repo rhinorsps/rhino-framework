@@ -53,7 +53,7 @@ public class ByteBufInputStream implements InputStream {
 
     @Override
     public boolean isClosed() throws IOException {
-        return byteBuf.isReadable();
+        return !byteBuf.isReadable() || byteBuf.refCnt() == 0;
     }
 
     @Override

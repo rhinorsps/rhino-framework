@@ -8,6 +8,8 @@ import org.rhino.rsps.net.io.stream.OutputStream;
 import java.io.IOException;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 
 public class NettyMessageWriter {
 
@@ -22,12 +24,15 @@ public class NettyMessageWriter {
     }
 
     public NettyMessageWriter opcode(int opcode) {
-        checkArgument(opcode > -1);
+        checkArgument(opcode > -1, "opcode cannot be negative");
         this.buffer.writeByte(opcode);
         return this;
     }
 
     public NettyMessageWriter length(MessageTemplate.Type type, int length) {
+        checkArgument(length >= 0, "negatice length");
+        checkNotNull(type, "missing type");
+
         switch (type) {
             case VARIABLE_BYTE:
                 buffer.writeByte(length);
@@ -40,12 +45,13 @@ public class NettyMessageWriter {
     }
 
     public NettyMessageWriter payload(InputStream stream) throws IOException {
+        checkArgument(!stream.isClosed(), "unreadable stream");
         buffer.writeBytes(stream.readFully());
         return this;
     }
 
     public ByteBuf complete() {
-        return buffer.retain();
+        return buffer.markReaderIndex().retain();
     }
 
 }
