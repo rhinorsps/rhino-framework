@@ -2,7 +2,7 @@ package org.rhino.rsps.net.io.stream;
 
 import java.io.IOException;
 
-interface DataStream {
+interface DataStream extends AutoCloseable {
 
     /**
      * The default endianness should none be given
@@ -15,7 +15,7 @@ interface DataStream {
      * @return
      * @throws IOException
      */
-    long available() throws IOException;
+    int available() throws IOException;
 
     /**
      * Closes the stream

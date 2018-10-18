@@ -48,7 +48,7 @@ public class NettyController {
         try {
             bootstrap.group(boss_group, worker_group)
                     .channel(NioServerSocketChannel.class)
-                    .childHandler(new NettyInitializer())
+                    .childHandler(new NettyInitializer(null))
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
 

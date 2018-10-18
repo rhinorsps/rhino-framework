@@ -10,9 +10,13 @@ public interface MessageTemplate {
     int getExpectedOpcode();
 
     /**
-     * Gets the expected length of the message
+     * gets the expected length of the message
      * @return
      */
-    int getExpectedLength();
+    Type getType();
+
+    enum Type {
+        FIXED_SIZE, VARIABLE_BYTE, VARIABLE_SHORT;
+    }
 
 }

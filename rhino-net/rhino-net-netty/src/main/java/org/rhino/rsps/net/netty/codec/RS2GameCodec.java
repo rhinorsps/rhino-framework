@@ -4,20 +4,21 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
 import org.rhino.rsps.net.Controller;
-import org.rhino.rsps.net.io.message.Message;
-import org.rhino.rsps.net.io.message.MessageTemplate;
-import org.rhino.rsps.net.io.message.MessageTemplateRepository;
+import org.rhino.rsps.net.io.message.*;
+import org.rhino.rsps.net.io.message.impl.FixedSizeMessageTemplate;
+import org.rhino.rsps.net.netty.message.NettyMessageReader;
+import org.rhino.rsps.net.netty.message.NettyMessageWriter;
 import org.rhino.rsps.net.netty.util.Attributes;
 import org.rhino.rsps.net.session.Session;
-import org.rhino.rsps.net.session.SessionContext;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.List;
 
 public class RS2GameCodec extends ByteToMessageCodec<Message> {
 
     /**
-     *
+     * the controller containing the template repository
      */
     private final Controller controller;
 
@@ -27,28 +28,31 @@ public class RS2GameCodec extends ByteToMessageCodec<Message> {
 
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, Message message, ByteBuf byteBuf) throws Exception {
+        if (message.getPayload() == null || message.getPayload().isClosed())
+            throw new IOException("unreadable message");
+
         Session session = channelHandlerContext.channel().attr(Attributes.SESSION_ATTRIBUTE_KEY).get();
         MessageTemplateRepository repository = controller.getTemplateRepository(session.getSessionContext());
-
-        if (message.getPayload() == null || message.getPayload().isClosed()) {
-            throw new IOException("unreadable message");
-        }
-
         MessageTemplate template = repository.getTemplateOutgoing(message);
-
+        byteBuf.writeBytes(NettyMessageWriter.create(channelHandlerContext.alloc().buffer())
+                .opcode(template.getExpectedOpcode())
+                .length(template.getType(), message.getPayload().available())
+                .payload(message.getPayload())
+                .complete());
     }
 
     @Override
-    protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
+    protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> out) throws Exception {
+        if (byteBuf.readableBytes() <= 0 || !byteBuf.isReadable())
+            throw new IOException("unreadable buffer");
+
         Session session = channelHandlerContext.channel().attr(Attributes.SESSION_ATTRIBUTE_KEY).get();
         MessageTemplateRepository repository = controller.getTemplateRepository(session.getSessionContext());
-
-        if (byteBuf.readableBytes() <= 0 || !byteBuf.isReadable()) {
-            throw new IOException("unreadable buffer");
-        }
-
         MessageTemplate template = repository.getTemplateIncoming(byteBuf.readUnsignedByte());
-
+        out.add(NettyMessageReader.fromTemplate(template)
+                .length(byteBuf)
+                .payload(byteBuf)
+                .complete());
     }
 
 }

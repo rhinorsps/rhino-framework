@@ -41,4 +41,11 @@ public interface InputStream extends DataStream {
      */
     long readLong() throws IOException;
 
+    /**
+     *
+     * @return
+     * @throws IOException
+     */
+    byte[] readFully() throws IOException;
+
 }
