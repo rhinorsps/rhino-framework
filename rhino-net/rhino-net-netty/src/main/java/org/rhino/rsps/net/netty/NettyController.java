@@ -6,10 +6,11 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.rhino.rsps.net.netty.codec.NettyInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NettyController {
+public class NettyController  {
 
     /**
      * The static logger for this class

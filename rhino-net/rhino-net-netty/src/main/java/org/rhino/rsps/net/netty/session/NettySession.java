@@ -1,4 +1,4 @@
-package org.rhino.rsps.net.netty;
+package org.rhino.rsps.net.netty.session;
 
 import io.netty.channel.Channel;
 import org.rhino.rsps.net.session.AbstractSession;

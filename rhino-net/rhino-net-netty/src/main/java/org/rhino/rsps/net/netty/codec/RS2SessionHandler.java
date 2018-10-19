@@ -1,11 +1,8 @@
 package org.rhino.rsps.net.netty.codec;
 
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.util.AttributeKey;
-import org.rhino.rsps.net.Controller;
-import org.rhino.rsps.net.netty.NettySession;
+import org.rhino.rsps.net.netty.session.NettySession;
 import org.rhino.rsps.net.netty.util.Attributes;
 import org.rhino.rsps.net.session.Session;
 import org.slf4j.Logger;
