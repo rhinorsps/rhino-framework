@@ -32,6 +32,7 @@ public class NettyMessageWriter {
     public NettyMessageWriter length(MessageTemplate.Type type, int length) {
         checkArgument(length >= 0, "negatice length");
         checkNotNull(type, "missing type");
+        checkNotNull(buffer);
 
         switch (type) {
             case VARIABLE_BYTE:
@@ -46,11 +47,13 @@ public class NettyMessageWriter {
 
     public NettyMessageWriter payload(InputStream stream) throws IOException {
         checkArgument(!stream.isClosed(), "unreadable stream");
+        checkNotNull(buffer);
         buffer.writeBytes(stream.readFully());
         return this;
     }
 
     public ByteBuf complete() {
+        checkNotNull(buffer);
         return buffer.markReaderIndex().retain();
     }
 

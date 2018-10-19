@@ -12,6 +12,7 @@ import org.rhino.rsps.net.netty.message.NettyMessageWriter;
 import org.rhino.rsps.net.netty.stream.ByteBufInputStream;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -33,9 +34,6 @@ public class NettyMessageReaderTest {
 
     @Test
     public void testMessageReaderFixedSize() throws IOException {
-        /**
-         * Create the test packet
-         */
         ByteBuf testPacket = NettyMessageWriter.create(Unpooled.buffer())
                 .opcode(TEST_OPCODE)
                 .length(MessageTemplate.Type.FIXED_SIZE, 0)
@@ -53,9 +51,6 @@ public class NettyMessageReaderTest {
 
     @Test
     public void testMessageReaderVariableSizeByte() throws IOException {
-        /**
-         * Create the test packet
-         */
         ByteBuf testPacket = NettyMessageWriter.create(Unpooled.buffer())
                 .opcode(TEST_OPCODE)
                 .length(MessageTemplate.Type.VARIABLE_BYTE, TEST_PAYLOAD.length)
@@ -73,9 +68,6 @@ public class NettyMessageReaderTest {
 
     @Test
     public void testMessageReaderVariableSizeShort() throws IOException {
-        /**
-         * Create the test packet
-         */
         ByteBuf testPacket = NettyMessageWriter.create(Unpooled.buffer())
                 .opcode(TEST_OPCODE)
                 .length(MessageTemplate.Type.VARIABLE_SHORT, TEST_PAYLOAD.length)
@@ -89,6 +81,29 @@ public class NettyMessageReaderTest {
 
         assertEquals(TEST_OPCODE, message.getOpcode());
         assertEquals(TEST_PAYLOAD.length, message.getPayload().available());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMessageReaderOpcodeMismatch() throws IOException {
+        ByteBuf testPacket = NettyMessageWriter.create(Unpooled.buffer())
+                .opcode(TEST_OPCODE)
+                .length(MessageTemplate.Type.VARIABLE_SHORT, TEST_PAYLOAD.length)
+                .payload(new ByteBufInputStream(Unpooled.wrappedBuffer(TEST_PAYLOAD)))
+                .complete();
+
+        NettyMessageReader.create(testPacket).opcode(69);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testMessageReaderFaultySizeVariable() throws IOException {
+        ByteBuf testPacket = NettyMessageWriter.create(Unpooled.buffer())
+                .opcode(TEST_OPCODE)
+                .length(MessageTemplate.Type.VARIABLE_BYTE, TEST_PAYLOAD.length)
+                .payload(new ByteBufInputStream(Unpooled.wrappedBuffer(TEST_PAYLOAD)))
+                .complete();
+
+        NettyMessageReader.create(testPacket).opcode(TEST_OPCODE)
+                .length(MessageTemplate.Type.VARIABLE_SHORT, -1);
     }
 
 }

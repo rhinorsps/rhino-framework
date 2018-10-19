@@ -8,6 +8,7 @@ import org.rhino.rsps.net.netty.stream.ByteBufInputStream;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 
 public class NettyMessageReader {
 
@@ -33,6 +34,7 @@ public class NettyMessageReader {
      * @return
      */
     public NettyMessageReader opcode(int expectedOpcode) {
+        checkNotNull(buffer);
         checkArgument(buffer.getUnsignedByte(0) == expectedOpcode, "opcode mismatch");
         this.opcode = buffer.readUnsignedByte();
         return this;
@@ -40,27 +42,29 @@ public class NettyMessageReader {
 
     public NettyMessageReader length(MessageTemplate.Type type, int expectedLength) {
         checkNotNull(buffer);
+
         switch (type) {
             case FIXED_SIZE:
-                // checkArgument(template instanceof FixedSizeMessageTemplate, "found message with fixed length, but template was not of type FixedSizeMessage");
                 length = expectedLength;
                 break;
             case VARIABLE_BYTE:
-                checkArgument(buffer.readableBytes() >= 1, "cannot read length");
+                checkState(buffer.readableBytes() >= 1, "cannot read length");
                 length = buffer.readUnsignedByte();
                 break;
             case VARIABLE_SHORT:
-                checkArgument(buffer.readableBytes() >= 2, "cannot read length");
+                checkState(buffer.readableBytes() >= 2, "cannot read length");
                 length = buffer.readUnsignedShort();
                 break;
         }
+        checkState(buffer.readableBytes() >= length, "buffer underflow");
         return this;
     }
 
     public Message complete() {
-        checkArgument(opcode != -1, "opcode cannot be negative");
-        checkArgument(length != -1, "length cannot be negative");
-        checkArgument(buffer.readableBytes() >= length, "buffer capacity < length", buffer.readableBytes(), length);
+        checkState(opcode != -1, "opcode cannot be negative");
+        checkState(length != -1, "length cannot be negative");
+        checkState(buffer.readableBytes() >= length, "buffer capacity < length", buffer.readableBytes(), length);
+        checkNotNull(buffer);
 
         return new NettyMessage(opcode, new ByteBufInputStream(buffer.readBytes(length).asReadOnly()));
     }

@@ -18,36 +18,57 @@ public class ByteBufInputStream implements InputStream {
 
     @Override
     public int readByte() throws IOException {
+        if (isClosed()) {
+            throw new IOException("cannot read from a closed stream");
+        }
         return byteBuf.readByte();
     }
 
     @Override
     public int readShort() throws IOException {
+        if (isClosed()) {
+            throw new IOException("cannot read from a closed stream");
+        }
         return byteBuf.readShort();
     }
 
     @Override
     public int readMedium() throws IOException {
+        if (isClosed()) {
+            throw new IOException("cannot read from a closed stream");
+        }
         return byteBuf.readMedium();
     }
 
     @Override
     public int readInteger() throws IOException {
+        if (isClosed()) {
+            throw new IOException("cannot read from a closed stream");
+        }
         return byteBuf.readInt();
     }
 
     @Override
     public long readLong() throws IOException {
+        if (isClosed()) {
+            throw new IOException("cannot read from a closed stream");
+        }
         return byteBuf.readLong();
     }
 
     @Override
     public int available() throws IOException {
+        if (isClosed()) {
+            throw new IOException("cannot read from a closed stream");
+        }
         return byteBuf.readableBytes();
     }
 
     @Override
     public void close() throws IOException {
+        if (isClosed()) {
+            throw new IOException("stream is already closed");
+        }
         byteBuf.release();
     }
 
@@ -58,6 +79,9 @@ public class ByteBufInputStream implements InputStream {
 
     @Override
     public byte[] readFully() throws IOException {
+        if (isClosed()) {
+            throw new IOException("cannot read from a closed stream");
+        }
         return byteBuf.array();
     }
 }
