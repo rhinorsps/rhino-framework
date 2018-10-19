@@ -6,26 +6,21 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.rhino.rsps.net.AbstractController;
+import org.rhino.rsps.net.AsyncController;
 import org.rhino.rsps.net.netty.codec.NettyInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NettyController  {
+import java.net.InetSocketAddress;
+import java.util.concurrent.ExecutorService;
+
+public class NettyController extends AsyncController {
 
     /**
      * The static logger for this class
      */
     private static final Logger logger = LoggerFactory.getLogger(NettyController.class);
-
-    /**
-     * The port the service is bound to
-     */
-    private static int port = 43594;
-
-    /**
-     * The host the service is bound to
-     */
-    private static String host = "localhost";
 
     /**
      * The server bootstrap
@@ -42,10 +37,17 @@ public class NettyController  {
      */
     private final EventLoopGroup worker_group = new NioEventLoopGroup();
 
+    public NettyController() {
+    }
+
+    public NettyController(ExecutorService service) {
+        super(service);
+    }
+
     /**
      * Starts the netty service
      */
-    public void start() throws Exception {
+    public ChannelFuture serveAsync(InetSocketAddress address, ExecutorService service) throws Exception {
         try {
             bootstrap.group(boss_group, worker_group)
                     .channel(NioServerSocketChannel.class)
@@ -53,24 +55,18 @@ public class NettyController  {
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
 
-            /*
-             * Bind and start to accept incoming connections.
-             */
-            ChannelFuture f = bootstrap.bind(host, port).sync();
-
-            /*
-             * Debug information
-             */
-            logger.info("Service started on port {}", port);
-
-            /*
-             * Wait until the server socket is closed to shut down the server
-             */
-            f.channel().closeFuture().sync();
+            ChannelFuture f = bootstrap.bind(address).sync();
+            logger.info("Service started on {}:{}", address.getHostName(), address.getPort());
+            return f.channel().closeFuture().sync();
         } finally {
             worker_group.shutdownGracefully();
             boss_group.shutdownGracefully();
         }
     }
 
+    @Override
+    public void shutdownAsync(ExecutorService service) throws Exception {
+        worker_group.shutdownGracefully();
+        boss_group.shutdownGracefully();
+    }
 }
