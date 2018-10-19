@@ -10,6 +10,12 @@ public interface MessageTemplate {
     int getExpectedOpcode();
 
     /**
+     * The expected length of the message
+     * @return
+     */
+    int getExpectedLength();
+
+    /**
      * gets the expected length of the message
      * @return
      */
