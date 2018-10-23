@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.rhino.rsps.net.Controller;
 
 import java.net.InetSocketAddress;
+import java.net.Socket;
 
 public class NettyControllerTest {
 
@@ -14,7 +15,12 @@ public class NettyControllerTest {
     @Test
     public void testNettyController() throws Exception {
         Controller nettyController = new NettyController();
-        nettyController.serve(InetSocketAddress.createUnresolved(host, port));
+        nettyController.serve(new InetSocketAddress(host, port));
+
+        Socket socket = new Socket();
+        socket.connect(new InetSocketAddress(host, port));
+        socket.close();
+
         nettyController.shutdown();
     }
 
