@@ -34,6 +34,7 @@ public class RS2GameCodec extends ByteToMessageCodec<Message> {
         Session session = channelHandlerContext.channel().attr(Attributes.SESSION_ATTRIBUTE_KEY).get();
         MessageTemplateRepository repository = controller.getTemplateRepository(session.getSessionContext());
         MessageTemplate template = repository.getTemplateOutgoing(message);
+
         byteBuf.writeBytes(NettyMessageWriter.create(channelHandlerContext.alloc().buffer())
                 .opcode(template.getExpectedOpcode())
                 .length(template.getType(), message.getPayload().available())
@@ -49,6 +50,7 @@ public class RS2GameCodec extends ByteToMessageCodec<Message> {
         Session session = channelHandlerContext.channel().attr(Attributes.SESSION_ATTRIBUTE_KEY).get();
         MessageTemplateRepository repository = controller.getTemplateRepository(session.getSessionContext());
         MessageTemplate template = repository.getTemplateIncoming(byteBuf.getUnsignedByte(0));
+
         out.add(NettyMessageReader.create(byteBuf)
                 .opcode(template.getExpectedOpcode())
                 .length(template.getType(), template.getExpectedLength())

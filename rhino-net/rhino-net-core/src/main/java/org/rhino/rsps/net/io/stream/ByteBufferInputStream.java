@@ -65,7 +65,6 @@ public class ByteBufferInputStream implements InputStream {
 
     @Override
     public void close() throws IOException {
-        throw new UnsupportedOperationException("ByteBufferInputStream cannot be closed");
     }
 
     @Override
