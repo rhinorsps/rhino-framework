@@ -9,6 +9,26 @@ import java.io.IOException;
 public interface OutputStream extends DataStream {
 
     /**
+     *
+     * @return
+     */
+    byte[] array();
+
+    /**
+     *
+     * @param data
+     * @throws IOException
+     */
+    void writeBytes(byte[] data) throws IOException;
+
+    /**
+     *
+     * @param out
+     * @throws IOException
+     */
+    void write(OutputStream out) throws IOException;
+
+    /**
      * Writes a byte with the given {@link Endianness}
      *
      * @return
@@ -44,18 +64,5 @@ public interface OutputStream extends DataStream {
      * @throws IOException
      */
     void writeLong(long value) throws IOException;
-
-    /**
-     *
-     * @return
-     */
-    byte[] array();
-
-    /**
-     *
-     * @param data
-     * @throws IOException
-     */
-    void writeBytes(byte[] data) throws IOException;
 
 }

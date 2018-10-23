@@ -74,6 +74,11 @@ public class ByteBufferOutputStream implements OutputStream {
     }
 
     @Override
+    public void write(OutputStream out) throws IOException {
+        this.buffer.put(out.array());
+    }
+
+    @Override
     public byte[] array() {
         return this.buffer.array();
     }

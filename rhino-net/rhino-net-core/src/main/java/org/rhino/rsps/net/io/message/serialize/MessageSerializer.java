@@ -7,7 +7,7 @@ import org.rhino.rsps.net.io.message.Message;
  *
  * @param <T>
  */
-public interface MessageSerializer<T> {
+public interface MessageSerializer {
 
     /**
      *
@@ -15,6 +15,6 @@ public interface MessageSerializer<T> {
      * @return
      * @throws Exception
      */
-    Message serialize(T object) throws Exception;
+    Message serialize(Object object) throws Exception;
 
 }

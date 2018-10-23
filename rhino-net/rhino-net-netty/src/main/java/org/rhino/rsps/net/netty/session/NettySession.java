@@ -19,7 +19,6 @@ public class NettySession extends AbstractSession {
      * @param channel
      */
     public NettySession(Channel channel) {
-        super();
         this.channel = channel;
     }
 
