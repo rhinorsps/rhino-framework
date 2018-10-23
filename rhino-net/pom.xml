@@ -10,6 +10,7 @@
     <modules>
         <module>rhino-net-core</module>
         <module>rhino-net-netty</module>
+        <module>rhino-net-stream</module>
     </modules>
     <packaging>pom</packaging>
 
