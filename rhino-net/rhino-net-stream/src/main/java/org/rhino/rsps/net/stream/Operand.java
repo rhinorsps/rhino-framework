@@ -18,14 +18,14 @@ public enum Operand {
     ADDITION(b -> b + 128),
 
     /**
-     * Inverses the byte's value
-     */
-    INVERSE(b -> -b),
-
-    /**
      * Subtracts 128 from the byte's value
      */
-    SUBTRACT(b -> 128 - b);
+    SUBTRACT(b -> 128 - b),
+
+    /**
+     * Inverses the byte's value
+     */
+    INVERSE(b -> -b);
 
     /**
      * The transformation function
@@ -46,8 +46,10 @@ public enum Operand {
      * @param value
      * @return
      */
-    public int apply(int value) {
-        return function.apply(value);
+    public byte[] apply(int position, byte... value) {
+        int result = function.apply((int) value[position]);
+        value[position] = (byte) result;
+        return value;
     }
 
 }

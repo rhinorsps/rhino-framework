@@ -31,4 +31,22 @@ public enum Endianness {
      */
     LITTLE_ENDIAN;
 
+    /**
+     *
+     * @return
+     */
+    public int getLeastSignificantByte() {
+        return 0;
+    }
+
+    /**
+     * Puts the data in its correct order
+     *
+     * @param data
+     * @return
+     */
+    public byte[] order(byte[] data) {
+        return data;
+    }
+
 }
