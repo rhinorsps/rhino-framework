@@ -2,6 +2,7 @@ package org.rhino.rsps.net.io.message.serialize.reflection;
 
 import org.rhino.rsps.net.io.message.Message;
 import org.rhino.rsps.net.io.message.serialize.MessageDeserializer;
+import org.rhino.rsps.net.io.message.serialize.reflection.pipeline.MessageDeserializerPipeline;
 
 public class ReflectionMessageDeserializer<T> implements MessageDeserializer<T> {
 

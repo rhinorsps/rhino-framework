@@ -3,6 +3,7 @@ package org.rhino.rsps.net.io.message.serialize.reflection;
 import org.rhino.rsps.net.io.message.Message;
 import org.rhino.rsps.net.io.message.MessageTemplate;
 import org.rhino.rsps.net.io.message.serialize.MessageSerializer;
+import org.rhino.rsps.net.io.message.serialize.reflection.pipeline.MessageSerializerPipeline;
 import org.rhino.rsps.net.io.stream.OutputStream;
 import org.rhino.rsps.net.io.stream.OutputStreamFactory;
 
