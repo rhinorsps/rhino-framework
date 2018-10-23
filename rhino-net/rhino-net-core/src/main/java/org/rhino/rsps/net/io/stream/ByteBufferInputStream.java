@@ -28,6 +28,10 @@ public class ByteBufferInputStream implements InputStream {
         this(ByteBuffer.allocate(capacity));
     }
 
+    public ByteBufferInputStream(OutputStream out) {
+        this(ByteBuffer.wrap(out.array()));
+    }
+
     @Override
     public int readByte() throws IOException {
         return this.buffer.get();

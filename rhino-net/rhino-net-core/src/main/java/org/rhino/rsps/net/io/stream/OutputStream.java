@@ -45,4 +45,17 @@ public interface OutputStream extends DataStream {
      */
     void writeLong(long value) throws IOException;
 
+    /**
+     *
+     * @return
+     */
+    byte[] array();
+
+    /**
+     *
+     * @param data
+     * @throws IOException
+     */
+    void writeBytes(byte[] data) throws IOException;
+
 }
