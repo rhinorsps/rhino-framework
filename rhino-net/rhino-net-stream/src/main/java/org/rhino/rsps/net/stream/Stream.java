@@ -1,5 +1,8 @@
 package org.rhino.rsps.net.stream;
 
+import org.rhino.rsps.net.stream.mutator.Endianness;
+import org.rhino.rsps.net.stream.mutator.Operand;
+
 import java.io.IOException;
 
 interface Stream extends AutoCloseable {
@@ -8,6 +11,11 @@ interface Stream extends AutoCloseable {
      * The default endianness should none be given
      */
     Endianness DEFAULT_ENDIANNESS = Endianness.BIG_ENDIAN;
+
+    /**
+     * The default operand, should none be given
+     */
+    Operand DEFAULT_OPERAND = Operand.NO_OP;
 
     /**
      * amount of data available
@@ -31,4 +39,5 @@ interface Stream extends AutoCloseable {
      * @throws IOException
      */
     boolean isClosed() throws IOException;
+
 }
