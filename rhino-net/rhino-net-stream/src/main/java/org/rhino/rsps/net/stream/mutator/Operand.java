@@ -45,8 +45,7 @@ public enum Operand {
      * done to it. This means that in a long, short, or int, the lowest 8-bits will hold the transformation
      */
     public long apply(long value) {
-        byte lsb = (byte) (value & 0xff);
-        lsb = function.apply(Integer.valueOf(lsb)).byteValue();
+        long lsb = function.apply((int) (value & 0xff));
         value >>= 8;
         return (value << 8) | lsb;
     }

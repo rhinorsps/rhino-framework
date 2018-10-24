@@ -1,20 +1,19 @@
-package org.rhino.rsps.net.netty.stream;
-
-import io.netty.buffer.ByteBuf;
-import org.rhino.rsps.net.stream.OutputStream;
+package org.rhino.rsps.net.stream;
 
 import java.io.IOException;
 import java.nio.BufferOverflowException;
+import java.nio.ByteBuffer;
 
-public class ByteBufOutputStream implements OutputStream {
+public class ByteBufferOutputStream implements OutputStream {
 
-    /**
-     *
-     */
-    private final ByteBuf byteBuf;
+    private final ByteBuffer buffer;
 
-    public ByteBufOutputStream(ByteBuf byteBuf) {
-        this.byteBuf = byteBuf;
+    public ByteBufferOutputStream(ByteBuffer buffer) {
+        this.buffer = buffer;
+    }
+
+    public ByteBufferOutputStream(byte[] data) {
+        this.buffer = ByteBuffer.wrap(data);
     }
 
     @Override
@@ -22,18 +21,18 @@ public class ByteBufOutputStream implements OutputStream {
         if (data.length > available()) {
             throw new BufferOverflowException();
         }
-        byteBuf.writeBytes(data);
+        this.buffer.put(data);
         return this;
     }
 
     @Override
     public int available() throws IOException {
-        return byteBuf.writableBytes();
+        return buffer.capacity() - buffer.position();
     }
 
     @Override
     public void close() throws IOException {
-        byteBuf.release();
+        // no operation
     }
 
     @Override

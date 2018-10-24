@@ -76,4 +76,11 @@ public class InputStreamTest {
         assertEquals(0, inputStream.available());
     }
 
+    @Test
+    public void testReadMedium() throws IOException {
+        InputStream inputStream = new ByteBufferInputStream(Arrays.copyOf(TEST_PAYLOAD, TEST_PAYLOAD.length));
+        assertEquals(((TEST_PAYLOAD[0] << 16) | (TEST_PAYLOAD[1] << 8)) | TEST_PAYLOAD[2], inputStream.readMedium());
+        assertEquals(1, inputStream.available());
+    }
+
 }

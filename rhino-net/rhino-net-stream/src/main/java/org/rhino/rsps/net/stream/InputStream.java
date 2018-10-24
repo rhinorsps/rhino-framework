@@ -65,6 +65,10 @@ public interface InputStream extends Stream {
         return this.readShort(endianness, DEFAULT_OPERAND);
     }
 
+    default int readShort(Operand operand) throws IOException {
+        return this.readShort(DEFAULT_ENDIANNESS, operand);
+    }
+
     default int readShort() throws IOException {
         return this.readShort(DEFAULT_ENDIANNESS, DEFAULT_OPERAND);
     }
@@ -86,6 +90,19 @@ public interface InputStream extends Stream {
     }
 
     /**
+     * Mediums are ints with only 3 bytes. These should never be in a format other than
+     * BIG_ENDIAN without an operand
+     * @return
+     * @throws IOException
+     */
+    default int readMedium() throws IOException {
+        ByteBuffer buffer = ByteBuffer.allocate(4);
+        buffer.put(read(3));
+        buffer.put((byte) 0);
+        return ((ByteBuffer) buffer.flip()).getInt() >> 8;
+    }
+
+    /**
      * Reads a short (2 bytes) with the given {@link Endianness} and mutator
      *
      * @return
@@ -97,6 +114,10 @@ public interface InputStream extends Stream {
 
     default int readInteger(Endianness endianness) throws IOException {
         return this.readInteger(endianness, DEFAULT_OPERAND);
+    }
+
+    default int readInteger(Operand operand) throws IOException {
+        return this.readInteger(DEFAULT_ENDIANNESS, operand);
     }
 
     default int readInteger() throws IOException {
@@ -117,6 +138,28 @@ public interface InputStream extends Stream {
 
     default long readUnsignedInteger() throws IOException {
         return this.readUnsignedInteger(DEFAULT_ENDIANNESS, DEFAULT_OPERAND);
+    }
+
+    /**
+     * Reads a short (2 bytes) with the given {@link Endianness} and mutator
+     *
+     * @return
+     * @throws IOException
+     */
+    default long readLong(Endianness endianness, Operand operand) throws IOException {
+        return operand.apply(ByteBuffer.wrap(this.read(8, endianness)).getLong());
+    }
+
+    default long readLong(Endianness endianness) throws IOException {
+        return this.readLong(endianness, DEFAULT_OPERAND);
+    }
+
+    default long readLong(Operand operand) throws IOException {
+        return this.readLong(DEFAULT_ENDIANNESS, operand);
+    }
+
+    default long readLong() throws IOException {
+        return this.readLong(DEFAULT_ENDIANNESS, DEFAULT_OPERAND);
     }
 
 }

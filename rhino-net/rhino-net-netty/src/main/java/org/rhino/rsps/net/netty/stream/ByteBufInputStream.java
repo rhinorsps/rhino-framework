@@ -1,9 +1,11 @@
 package org.rhino.rsps.net.netty.stream;
 
 import io.netty.buffer.ByteBuf;
-import org.rhino.rsps.net.io.stream.InputStream;
+import org.rhino.rsps.net.stream.InputStream;
 
 import java.io.IOException;
+import java.nio.BufferUnderflowException;
+import java.nio.channels.ClosedChannelException;
 
 public class ByteBufInputStream implements InputStream {
 
@@ -17,71 +19,28 @@ public class ByteBufInputStream implements InputStream {
     }
 
     @Override
-    public int readByte() throws IOException {
-        if (isClosed()) {
-            throw new IOException("cannot read from a closed stream");
-        }
-        return byteBuf.readByte();
-    }
-
-    @Override
-    public int readShort() throws IOException {
-        if (isClosed()) {
-            throw new IOException("cannot read from a closed stream");
-        }
-        return byteBuf.readShort();
-    }
-
-    @Override
-    public int readMedium() throws IOException {
-        if (isClosed()) {
-            throw new IOException("cannot read from a closed stream");
-        }
-        return byteBuf.readMedium();
-    }
-
-    @Override
-    public int readInteger() throws IOException {
-        if (isClosed()) {
-            throw new IOException("cannot read from a closed stream");
-        }
-        return byteBuf.readInt();
-    }
-
-    @Override
-    public long readLong() throws IOException {
-        if (isClosed()) {
-            throw new IOException("cannot read from a closed stream");
-        }
-        return byteBuf.readLong();
+    public byte[] read(int length) throws IOException {
+        if (available() < length)
+            throw new BufferUnderflowException();
+        if (isClosed())
+            throw new ClosedChannelException();
+        byte[] bytes = new byte[length];
+        this.byteBuf.readBytes(bytes);
+        return bytes;
     }
 
     @Override
     public int available() throws IOException {
-        if (isClosed()) {
-            throw new IOException("cannot read from a closed stream");
-        }
         return byteBuf.readableBytes();
     }
 
     @Override
     public void close() throws IOException {
-        if (isClosed()) {
-            throw new IOException("stream is already closed");
-        }
-        byteBuf.release();
+        this.byteBuf.release();
     }
 
     @Override
     public boolean isClosed() throws IOException {
-        return !byteBuf.isReadable() || byteBuf.refCnt() == 0;
-    }
-
-    @Override
-    public byte[] readFully() throws IOException {
-        if (isClosed()) {
-            throw new IOException("cannot read from a closed stream");
-        }
-        return byteBuf.array();
+        return byteBuf.refCnt() > 0;
     }
 }
