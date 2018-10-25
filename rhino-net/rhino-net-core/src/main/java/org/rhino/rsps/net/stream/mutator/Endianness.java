@@ -1,9 +1,6 @@
 package org.rhino.rsps.net.stream.mutator;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.function.Function;
-import java.util.function.UnaryOperator;
 
 /**
  * Indicates the order of the bytes in a packet
