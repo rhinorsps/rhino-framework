@@ -125,7 +125,7 @@ public interface InputStream extends Stream {
     }
 
     default long readUnsignedInteger(Endianness endianness, Operand operand) throws IOException {
-        return this.readInteger(endianness, operand) & 0xffffffff;
+        return this.readInteger(endianness, operand) & 0xffffffffL;
     }
 
     default long readUnsignedInteger(Endianness endianness) throws IOException {

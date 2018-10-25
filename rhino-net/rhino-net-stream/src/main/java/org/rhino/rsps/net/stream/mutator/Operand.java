@@ -15,7 +15,7 @@ public enum Operand {
     /**
      * Adds 128 to the byte's value (Type A)
      */
-    ADDITION(b -> b + 128),
+    ADDITIVE(b -> b + 128),
 
     /**
      * Subtracts 128 from the byte's value (Type B)
@@ -25,7 +25,7 @@ public enum Operand {
     /**
      * Inverses the byte's value (Type C)
      */
-    INVERSE(b -> -b);
+    NEGATE(b -> -b);
 
     /**
      * The transformation function
