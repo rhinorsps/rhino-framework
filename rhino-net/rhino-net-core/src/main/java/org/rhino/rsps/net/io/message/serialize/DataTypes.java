@@ -1,8 +1,5 @@
 package org.rhino.rsps.net.io.message.serialize;
 
-import org.rhino.rsps.net.io.message.serialize.DataType;
-import org.rhino.rsps.net.io.stream.InputStream;
-import org.rhino.rsps.net.io.stream.OutputStream;
 
 import java.io.IOException;
 import java.util.HashMap;

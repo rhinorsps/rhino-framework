@@ -11,6 +11,7 @@
         <module>rhino-net-core</module>
         <module>rhino-net-netty</module>
         <module>rhino-net-stream</module>
+        <module>rhino-net-packet</module>
     </modules>
     <packaging>pom</packaging>
 
