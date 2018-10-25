@@ -1,7 +1,6 @@
 package org.rhino.rsps.net.netty.session;
 
 import io.netty.channel.Channel;
-import org.rhino.rsps.net.session.AbstractSession;
 import org.rhino.rsps.net.session.Session;
 
 import java.io.IOException;

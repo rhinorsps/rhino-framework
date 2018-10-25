@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 

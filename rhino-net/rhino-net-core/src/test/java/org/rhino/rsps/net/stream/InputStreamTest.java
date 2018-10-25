@@ -2,7 +2,6 @@ package org.rhino.rsps.net.stream;
 
 import org.junit.Test;
 import org.rhino.rsps.net.stream.mutator.Endianness;
-import org.rhino.rsps.net.stream.mutator.Operand;
 
 import java.io.IOException;
 import java.nio.BufferUnderflowException;

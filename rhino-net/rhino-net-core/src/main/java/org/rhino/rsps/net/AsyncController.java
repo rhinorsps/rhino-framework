@@ -1,7 +1,6 @@
 package org.rhino.rsps.net;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -19,7 +18,7 @@ public abstract class AsyncController extends AbstractController {
     private Future<?> future;
 
     public AsyncController() {
-        this (Executors.newSingleThreadExecutor());
+        this(Executors.newSingleThreadExecutor());
     }
 
     public AsyncController(ExecutorService service) {
@@ -38,14 +37,12 @@ public abstract class AsyncController extends AbstractController {
     }
 
     /**
-     *
      * @param address
      * @throws Exception
      */
     public abstract <T> T serveAsync(InetSocketAddress address, ExecutorService service) throws Exception;
 
     /**
-     *
      * @param service
      * @throws Exception
      */

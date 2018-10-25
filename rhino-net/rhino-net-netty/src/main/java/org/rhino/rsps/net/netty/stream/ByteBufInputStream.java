@@ -41,6 +41,6 @@ public class ByteBufInputStream implements InputStream {
 
     @Override
     public boolean isClosed() throws IOException {
-        return byteBuf.refCnt() > 0;
+        return byteBuf.refCnt() <= 0;
     }
 }

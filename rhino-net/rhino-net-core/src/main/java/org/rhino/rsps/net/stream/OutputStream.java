@@ -1,6 +1,5 @@
 package org.rhino.rsps.net.stream;
 
-import com.sun.corba.se.spi.orbutil.fsm.State;
 import org.rhino.rsps.net.stream.mutator.Endianness;
 import org.rhino.rsps.net.stream.mutator.Operand;
 

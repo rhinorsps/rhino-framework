@@ -1,7 +1,5 @@
 package org.rhino.rsps.net.stream;
 
-import org.rhino.rsps.net.stream.InputStream;
-
 import java.io.IOException;
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
