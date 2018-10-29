@@ -41,4 +41,9 @@ public class ByteBufOutputStream implements OutputStream {
         return false;
     }
 
+    @Override
+    public int capacity() {
+        return byteBuf.capacity();
+    }
+
 }

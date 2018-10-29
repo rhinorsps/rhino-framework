@@ -42,6 +42,11 @@ public class DefaultPacketDefinition implements PacketDefinition {
      * @param headerType
      */
     public DefaultPacketDefinition(int expectedOpcode, int expectedLength, HeaderType headerType) {
+        if (expectedLength >= 0 && headerType != HeaderType.FIXED_SIZE)
+            throw new IllegalArgumentException("expected length cannot be >= 0 without fixed header type");
+        if (expectedLength < 0 && headerType == HeaderType.FIXED_SIZE)
+            throw new IllegalArgumentException("fixed header type needs expected length >= 0");
+
         this.expectedLength = expectedLength;
         this.expectedOpcode = expectedOpcode;
         this.headerType = headerType;

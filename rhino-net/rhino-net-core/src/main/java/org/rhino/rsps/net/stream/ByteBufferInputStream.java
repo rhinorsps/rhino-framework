@@ -13,7 +13,7 @@ public class ByteBufferInputStream implements InputStream {
     }
 
     public ByteBufferInputStream(byte[] data) {
-        this.buffer = ByteBuffer.wrap(data);
+        this(ByteBuffer.wrap(data));
     }
 
     @Override
@@ -24,6 +24,11 @@ public class ByteBufferInputStream implements InputStream {
         byte[] bytes = new byte[length];
         this.buffer.get(bytes);
         return bytes;
+    }
+
+    @Override
+    public InputStream readSlice(int length) throws IOException {
+        return new ByteBufferInputStream(this.read(length));
     }
 
     @Override
@@ -39,6 +44,11 @@ public class ByteBufferInputStream implements InputStream {
     @Override
     public boolean isClosed() throws IOException {
         return false;
+    }
+
+    @Override
+    public int capacity() {
+        return buffer.capacity();
     }
 
 }

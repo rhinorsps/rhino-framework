@@ -40,4 +40,8 @@ public class ByteBufferOutputStream implements OutputStream {
         return false;
     }
 
+    @Override
+    public int capacity() {
+        return buffer.capacity();
+    }
 }

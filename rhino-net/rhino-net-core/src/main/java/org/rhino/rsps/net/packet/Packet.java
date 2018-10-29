@@ -1,5 +1,6 @@
 package org.rhino.rsps.net.packet;
 
+import org.rhino.rsps.net.packet.definition.PacketDefinition;
 import org.rhino.rsps.net.stream.InputStream;
 
 public interface Packet {
@@ -15,5 +16,12 @@ public interface Packet {
      * @return
      */
     InputStream getPayload();
+
+    /**
+     * Gets the packet's definition
+     *
+     * @return
+     */
+    PacketDefinition getDefinition();
 
 }

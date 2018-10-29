@@ -19,6 +19,13 @@ public interface InputStream extends Stream {
     byte[] read(int length) throws IOException;
 
     /**
+     * Reads a slice of data
+     * @return
+     * @throws IOException
+     */
+    InputStream readSlice(int length) throws IOException;
+
+    /**
      * Reads an amount of data and orders bytes according to endianness
      *
      * @return
@@ -96,10 +103,7 @@ public interface InputStream extends Stream {
      * @throws IOException
      */
     default int readMedium() throws IOException {
-        ByteBuffer buffer = ByteBuffer.allocate(4);
-        buffer.put(read(3));
-        buffer.put((byte) 0);
-        return ((ByteBuffer) buffer.flip()).getInt() >> 8;
+        return ((ByteBuffer) ByteBuffer.allocate(4).put(read(3)).put((byte) 0).flip()).getInt() >> 8;
     }
 
     /**
@@ -161,6 +165,5 @@ public interface InputStream extends Stream {
     default long readLong() throws IOException {
         return this.readLong(DEFAULT_ENDIANNESS, DEFAULT_OPERAND);
     }
-
 }
 

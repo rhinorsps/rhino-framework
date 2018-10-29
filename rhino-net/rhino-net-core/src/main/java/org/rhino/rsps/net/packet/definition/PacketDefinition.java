@@ -21,14 +21,9 @@ public interface PacketDefinition {
     HeaderType getHeaderType();
 
     /**
-     * The type of the hea der
+     * The type of the header. Do not change order!
      */
     enum HeaderType {
-
-        /**
-         * Indicates no header whatsoever
-         */
-        HEADLESS,
 
         /**
          * Header is just the opcode

@@ -26,6 +26,12 @@ interface Stream extends AutoCloseable {
     int available() throws IOException;
 
     /**
+     *
+     * @return
+     */
+    int capacity();
+
+    /**
      * Closes the stream
      *
      * @throws IOException

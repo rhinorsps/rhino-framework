@@ -1,6 +1,7 @@
 package org.rhino.rsps.net.netty.stream;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import org.rhino.rsps.net.stream.InputStream;
 
 import java.io.IOException;
@@ -18,6 +19,10 @@ public class ByteBufInputStream implements InputStream {
         this.byteBuf = byteBuf;
     }
 
+    public ByteBufInputStream(byte[] data) {
+        this(Unpooled.wrappedBuffer(data));
+    }
+
     @Override
     public byte[] read(int length) throws IOException {
         if (available() < length)
@@ -30,6 +35,11 @@ public class ByteBufInputStream implements InputStream {
     }
 
     @Override
+    public InputStream readSlice(int length) throws IOException {
+        return new ByteBufInputStream(this.read(length));
+    }
+
+    @Override
     public int available() throws IOException {
         return byteBuf.readableBytes();
     }
@@ -37,6 +47,11 @@ public class ByteBufInputStream implements InputStream {
     @Override
     public void close() throws IOException {
         this.byteBuf.release();
+    }
+
+    @Override
+    public int capacity() {
+        return byteBuf.capacity();
     }
 
     @Override

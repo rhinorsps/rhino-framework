@@ -27,6 +27,25 @@ public interface OutputStream extends Stream {
     }
 
     /**
+     * Reads from an inputstream and writes the contents
+     * @param in
+     * @param length
+     * @return
+     */
+    default OutputStream write(InputStream in, int length) throws IOException {
+        return this.write(in.read(length));
+    }
+
+    /**
+     * Helper method for write(in, in.available())
+     * @param in
+     * @return
+     */
+    default OutputStream write(InputStream in) throws IOException {
+        return this.write(in.read(in.available()));
+    }
+
+    /**
      * Writes a byte with the given operand to the stream
      *
      * @param value
