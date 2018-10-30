@@ -20,14 +20,8 @@ public class RS2SessionHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        if (ctx.channel().hasAttr(Attributes.SESSION_ATTRIBUTE_KEY)) {
-            Session session = new NettySession(ctx.channel());
-
-            ctx.channel().attr(Attributes.SESSION_ATTRIBUTE_KEY).set(session);
-            logger.info("channel registered " + ctx.channel().remoteAddress());
-        } else {
-            ctx.channel().close();
-        }
+        ctx.channel().attr(Attributes.SESSION_ATTRIBUTE_KEY).set(new NettySession(ctx.channel()));
+        logger.info("channel registered " + ctx.channel().remoteAddress());
     }
 
     @Override

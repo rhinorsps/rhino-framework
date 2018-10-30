@@ -1,6 +1,12 @@
 package org.rhino.rsps.net.stream.mutator;
 
+import com.google.common.primitives.Bytes;
+
+import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.function.Function;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 /**
  * Indicates the order of the bytes in a packet
@@ -61,26 +67,22 @@ public enum Endianness {
      * @return
      */
     private static byte[] littleEndian(byte[] bytes) {
-        for (int i = 0; i < bytes.length / 2; i++) {
-            byte temp = bytes[i];
-            bytes[i] = bytes[bytes.length - 1 - i];
-            bytes[bytes.length - 1 - i] = temp;
-        }
+        Bytes.reverse(bytes);
         return bytes;
     }
 
     /**
-     * shifts bytes 2 to the right
+     * [0,1,2,3] -> [2,3,0,1] in a 4-byte integer, basically swap the first 2 and the second 2 bytes,
+     * or shift the array to the left/right by 2
      *
      * @param bytes
      * @return
      */
     private static byte[] middleEndian(byte[] bytes) {
-        byte[] output = new byte[bytes.length];
-        for (int index = 0; index < bytes.length; index++) {
-            output[index] = bytes[(index + 2) % bytes.length];
-        }
-        return output;
+        checkArgument(bytes.length == 4, "middle endian only available to 4-byte integers");
+        return ByteBuffer.allocate(4)
+                .put(bytes, 2, 2)
+                .put(bytes, 0, 2).array();
     }
 
 }

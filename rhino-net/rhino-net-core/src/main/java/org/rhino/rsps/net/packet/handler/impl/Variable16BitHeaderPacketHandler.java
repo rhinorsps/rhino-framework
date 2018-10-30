@@ -13,31 +13,30 @@ import java.nio.BufferUnderflowException;
 /**
  * FIXME: This can obviously be made abstract to combine both 8 and 16 bit headers
  */
-public class Variable8BitHeaderPacketReader extends AbstractPacketHandler {
+public class Variable16BitHeaderPacketHandler extends AbstractPacketHandler {
 
     /**
      *
      */
-    public Variable8BitHeaderPacketReader() {
-        super(PacketDefinition.HeaderType.VARIABLE_SIZE_8);
+    public Variable16BitHeaderPacketHandler() {
+        super(PacketDefinition.HeaderType.VARIABLE_SIZE_16);
     }
 
     @Override
     public Packet read(PacketDefinition definition, InputStream in) throws IOException {
-        if (in.available() < definition.getExpectedLength() + 2)
+        if (in.available() < definition.getExpectedLength() + 3)
             throw new BufferUnderflowException();
 
-        return new DefaultPacket(in.readUnsignedByte(), in.readSlice(in.readUnsignedByte()), definition);
+        return new DefaultPacket(in.readUnsignedByte(), in.readSlice(in.readUnsignedShort()), definition);
     }
 
     @Override
     public void write(Packet packet, OutputStream out) throws IOException {
-        if (out.available() < packet.getDefinition().getExpectedLength() + 2)
+        if (out.available() < packet.getDefinition().getExpectedLength() + 3)
             throw new BufferUnderflowException();
 
         out.writeByte(packet.getOpcode());
-        out.writeByte(packet.getPayload().available());
+        out.writeShort(packet.getPayload().available());
         out.write(packet.getPayload());
     }
-
 }

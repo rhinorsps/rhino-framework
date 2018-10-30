@@ -2,9 +2,11 @@ package org.rhino.rsps.net.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.rhino.rsps.net.AbstractController;
 import org.rhino.rsps.net.AsyncController;
@@ -23,6 +25,11 @@ public class NettyController extends AsyncController {
     private static final Logger logger = LoggerFactory.getLogger(NettyController.class);
 
     /**
+     *
+     */
+    private final ChannelInitializer<SocketChannel> initializer = new NettyInitializer();
+
+    /**
      * The server bootstrap
      */
     private final ServerBootstrap bootstrap = new ServerBootstrap();
@@ -38,6 +45,7 @@ public class NettyController extends AsyncController {
     private final EventLoopGroup worker_group = new NioEventLoopGroup();
 
     public NettyController() {
+        super();
     }
 
     public NettyController(ExecutorService service) {
@@ -51,7 +59,7 @@ public class NettyController extends AsyncController {
         try {
             bootstrap.group(boss_group, worker_group)
                     .channel(NioServerSocketChannel.class)
-                    .childHandler(new NettyInitializer(null))
+                    .childHandler(initializer)
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
 

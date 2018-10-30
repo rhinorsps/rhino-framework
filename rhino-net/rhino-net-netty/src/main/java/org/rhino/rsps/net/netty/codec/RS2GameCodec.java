@@ -3,43 +3,25 @@ package org.rhino.rsps.net.netty.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
-import org.rhino.rsps.net.Controller;
-import org.rhino.rsps.net.io.message.*;
-import org.rhino.rsps.net.io.message.impl.FixedSizeMessageTemplate;
-import org.rhino.rsps.net.netty.message.NettyMessageReader;
-import org.rhino.rsps.net.netty.message.NettyMessageWriter;
+import org.rhino.rsps.net.netty.stream.ByteBufInputStream;
+import org.rhino.rsps.net.netty.stream.ByteBufOutputStream;
 import org.rhino.rsps.net.netty.util.Attributes;
+import org.rhino.rsps.net.packet.Packet;
+import org.rhino.rsps.net.packet.definition.PacketDefinition;
+import org.rhino.rsps.net.packet.definition.PacketDefinitionRepository;
 import org.rhino.rsps.net.session.Session;
 
 import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.List;
 
-public class RS2GameCodec extends ByteToMessageCodec<Message> {
-
-    /**
-     * the controller containing the template repository
-     */
-    private final Controller controller;
-
-    public RS2GameCodec(Controller controller) {
-        this.controller = controller;
-    }
+public class RS2GameCodec extends ByteToMessageCodec<Packet> {
 
     @Override
-    protected void encode(ChannelHandlerContext channelHandlerContext, Message message, ByteBuf byteBuf) throws Exception {
+    protected void encode(ChannelHandlerContext channelHandlerContext, Packet message, ByteBuf byteBuf) throws Exception {
         if (message.getPayload() == null || message.getPayload().isClosed())
             throw new IOException("unreadable message");
 
-        Session session = channelHandlerContext.channel().attr(Attributes.SESSION_ATTRIBUTE_KEY).get();
-        MessageTemplateRepository repository = controller.getTemplateRepository(session.getSessionContext());
-        MessageTemplate template = repository.getTemplateOutgoing(message);
-
-        byteBuf.writeBytes(NettyMessageWriter.create(channelHandlerContext.alloc().buffer())
-                .opcode(template.getExpectedOpcode())
-                .length(template.getType(), message.getPayload().available())
-                .payload(message.getPayload())
-                .complete());
+        controller.getPacketHandler(message.getDefinition()).write(message, new ByteBufOutputStream(byteBuf));
     }
 
     @Override
@@ -48,13 +30,8 @@ public class RS2GameCodec extends ByteToMessageCodec<Message> {
             throw new IOException("unreadable buffer");
 
         Session session = channelHandlerContext.channel().attr(Attributes.SESSION_ATTRIBUTE_KEY).get();
-        MessageTemplateRepository repository = controller.getTemplateRepository(session.getSessionContext());
-        MessageTemplate template = repository.getTemplateIncoming(byteBuf.getUnsignedByte(0));
-
-        out.add(NettyMessageReader.create(byteBuf)
-                .opcode(template.getExpectedOpcode())
-                .length(template.getType(), template.getExpectedLength())
-                .complete());
+        PacketDefinition definition = controller.getDefinition(byteBuf.getByte(0), session.getSessionContext(), PacketDefinitionRepository.SubRepository.DOWNSTREAM);
+        out.add(controller.getPacketHandler(definition).read(definition,  new ByteBufInputStream(byteBuf)));
     }
 
 }

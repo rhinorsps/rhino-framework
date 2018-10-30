@@ -3,23 +3,18 @@ package org.rhino.rsps.net.packet.handler.impl;
 import org.rhino.rsps.net.packet.DefaultPacket;
 import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.definition.PacketDefinition;
-import org.rhino.rsps.net.packet.handler.PacketHandler;
-import org.rhino.rsps.net.session.SessionContext;
-import org.rhino.rsps.net.stream.ByteBufferInputStream;
 import org.rhino.rsps.net.stream.InputStream;
 import org.rhino.rsps.net.stream.OutputStream;
 
 import java.io.IOException;
 import java.nio.BufferUnderflowException;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
-public class FixedHeaderPacketReader extends AbstractPacketHandler {
+public class FixedHeaderPacketHandler extends AbstractPacketHandler {
 
     /**
      *
      */
-    public FixedHeaderPacketReader() {
+    public FixedHeaderPacketHandler() {
         super (PacketDefinition.HeaderType.FIXED_SIZE);
     }
 

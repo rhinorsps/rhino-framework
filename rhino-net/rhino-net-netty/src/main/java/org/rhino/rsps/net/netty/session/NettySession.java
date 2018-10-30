@@ -2,11 +2,12 @@ package org.rhino.rsps.net.netty.session;
 
 import io.netty.channel.Channel;
 import org.rhino.rsps.net.session.Session;
+import org.rhino.rsps.net.session.SessionContext;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
-public class NettySession extends AbstractSession {
+public class NettySession implements Session {
 
     /**
      * The Netty {@link Channel}
@@ -26,6 +27,11 @@ public class NettySession extends AbstractSession {
         CompletableFuture<Session> future = new CompletableFuture<>();
         channel.close().addListener(f -> future.complete(NettySession.this));
         return future;
+    }
+
+    @Override
+    public SessionContext getSessionContext() {
+        return null;
     }
 
 }

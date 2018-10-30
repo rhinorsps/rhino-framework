@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.definition.DefaultPacketDefinition;
 import org.rhino.rsps.net.packet.definition.PacketDefinition;
-import org.rhino.rsps.net.packet.handler.impl.Variable16BitHeaderPacketReader;
+import org.rhino.rsps.net.packet.handler.impl.Variable16BitHeaderPacketHandler;
 import org.rhino.rsps.net.stream.ByteBufferInputStream;
 import org.rhino.rsps.net.stream.InputStream;
 
@@ -20,7 +20,7 @@ public class Variable16BitPackerHandlerTest {
     private static final int TEST_LENGTH = 3;
     private static final PacketDefinition TEST_DEFINITION = new DefaultPacketDefinition(TEST_OPCODE, TEST_LENGTH);
 
-    private static final PacketHandler TEST_READER = new Variable16BitHeaderPacketReader();
+    private static final PacketHandler TEST_READER = new Variable16BitHeaderPacketHandler();
 
     private static final byte[] TEST_DATA = {
             0, TEST_LENGTH, 2, 3, 4

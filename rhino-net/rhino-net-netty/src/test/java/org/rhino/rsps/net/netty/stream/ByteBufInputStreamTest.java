@@ -2,11 +2,9 @@ package org.rhino.rsps.net.netty.stream;
 
 import io.netty.buffer.Unpooled;
 import org.junit.Test;
-import org.rhino.rsps.net.io.stream.InputStream;
+import org.rhino.rsps.net.stream.InputStream;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -20,7 +18,7 @@ public class ByteBufInputStreamTest {
     @Test
     public void testReadFully() throws IOException {
         try (InputStream inputStream = new ByteBufInputStream(Unpooled.wrappedBuffer(TEST_PAYLOAD))) {
-            assertArrayEquals(TEST_PAYLOAD, inputStream.readFully());
+            assertArrayEquals(TEST_PAYLOAD, inputStream.read(TEST_PAYLOAD.length));
         }
     }
 

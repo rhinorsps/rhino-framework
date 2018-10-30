@@ -5,18 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.rhino-rsps</groupId>
-    <artifactId>rhino-net</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>rhino-starter</artifactId>
+    <version>1.0</version>
     <modules>
-        <module>rhino-net-core</module>
-        <module>rhino-net-netty</module>
+        <module>rhino-starter-web-netty</module>
     </modules>
     <packaging>pom</packaging>
-
-    <parent>
-        <groupId>org.rhino-rsps</groupId>
-        <artifactId>rhino-parent</artifactId>
-        <version>1.1-SNAPSHOT</version>
-    </parent>
 
 </project>

@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.definition.DefaultPacketDefinition;
 import org.rhino.rsps.net.packet.definition.PacketDefinition;
-import org.rhino.rsps.net.packet.handler.impl.FixedHeaderPacketReader;
+import org.rhino.rsps.net.packet.handler.impl.FixedHeaderPacketHandler;
 import org.rhino.rsps.net.stream.ByteBufferInputStream;
 import org.rhino.rsps.net.stream.InputStream;
 
@@ -21,7 +21,7 @@ public class FixedSizePacketHandlerTest {
     private static final int TEST_LENGTH = 4;
     private static final PacketDefinition TEST_DEFINITION = new DefaultPacketDefinition(TEST_OPCODE, TEST_LENGTH);
 
-    private static final FixedHeaderPacketReader TEST_READER = new FixedHeaderPacketReader();
+    private static final FixedHeaderPacketHandler TEST_READER = new FixedHeaderPacketHandler();
 
     private static final byte[] TEST_DATA = {
             1, 2, 3, 4

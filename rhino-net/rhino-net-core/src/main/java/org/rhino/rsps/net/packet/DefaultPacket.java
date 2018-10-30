@@ -4,7 +4,7 @@ import org.rhino.rsps.net.packet.definition.PacketDefinition;
 import org.rhino.rsps.net.stream.InputStream;
 
 /**
- * FIXME: redundant?
+ * FIXME: implement a better version of packet
  */
 public class DefaultPacket implements Packet {
 
