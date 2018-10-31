@@ -3,6 +3,7 @@ package org.rhino.rsps.net.packet.handler.impl;
 import org.rhino.rsps.net.packet.DefaultPacket;
 import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.definition.PacketDefinition;
+import org.rhino.rsps.net.stream.ByteBufferInputStream;
 import org.rhino.rsps.net.stream.InputStream;
 import org.rhino.rsps.net.stream.OutputStream;
 
@@ -27,7 +28,7 @@ public class FixedHeaderPacketHandler extends AbstractPacketHandler {
         if (opcode != definition.getExpectedOpcode())
             throw new IllegalStateException("opcode mismatch [" + opcode + "," + definition.getExpectedOpcode() + "]");
 
-        return new DefaultPacket(opcode, in.readSlice(definition.getExpectedLength()), definition);
+        return new DefaultPacket(opcode, definition, new ByteBufferInputStream(in.read(definition.getExpectedLength())));
     }
 
     @Override

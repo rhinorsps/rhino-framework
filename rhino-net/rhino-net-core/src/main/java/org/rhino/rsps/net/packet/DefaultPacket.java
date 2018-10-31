@@ -12,7 +12,7 @@ public class DefaultPacket implements Packet {
     private final InputStream payload;
     private final PacketDefinition definition;
 
-    public DefaultPacket(int opcode, InputStream payload, PacketDefinition definition) {
+    public DefaultPacket(int opcode, PacketDefinition definition, InputStream payload) {
         this.opcode = opcode;
         this.payload = payload;
         this.definition = definition;

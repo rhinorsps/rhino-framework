@@ -27,7 +27,7 @@ public class NettyController extends AsyncController {
     /**
      *
      */
-    private final ChannelInitializer<SocketChannel> initializer = new NettyInitializer();
+    private final ChannelInitializer<SocketChannel> initializer = new NettyInitializer(null);
 
     /**
      * The server bootstrap

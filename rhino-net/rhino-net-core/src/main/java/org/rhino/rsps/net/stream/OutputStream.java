@@ -135,4 +135,20 @@ public interface OutputStream extends Stream {
         return this.writeLong(value, DEFAULT_ENDIANNESS, DEFAULT_OPERAND);
     }
 
+    /**
+     * Writes a string
+     *
+     * @param s
+     * @param delimiter
+     * @return
+     * @throws IOException
+     */
+    default OutputStream writeString(String s, char delimiter) throws IOException {
+        return this.write(s.getBytes()).writeByte(delimiter);
+    }
+
+    default OutputStream writeString(String s) throws IOException {
+        return this.writeString(s, '\n');
+    }
+
 }

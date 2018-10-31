@@ -10,7 +10,7 @@ public class PacketDefinitionTest {
 
     @Test
     public void testFixedLength() {
-        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, 1);
+        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, 1, null);
 
         assertEquals(TEST_OPCODE, definition.getExpectedOpcode());
         assertEquals(1, definition.getExpectedLength());
@@ -19,7 +19,7 @@ public class PacketDefinitionTest {
 
     @Test
     public void testVariableLength8Bit() {
-        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, PacketDefinition.HeaderType.VARIABLE_SIZE_8);
+        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, PacketDefinition.HeaderType.VARIABLE_SIZE_8, null);
 
         assertEquals(TEST_OPCODE, definition.getExpectedOpcode());
         assertEquals(-1, definition.getExpectedLength());
@@ -28,7 +28,7 @@ public class PacketDefinitionTest {
 
     @Test
     public void testVariableLength16Bit() {
-        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, PacketDefinition.HeaderType.VARIABLE_SIZE_16);
+        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, PacketDefinition.HeaderType.VARIABLE_SIZE_16, null);
 
         assertEquals(TEST_OPCODE, definition.getExpectedOpcode());
         assertEquals(-1, definition.getExpectedLength());
@@ -37,12 +37,12 @@ public class PacketDefinitionTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testNegativeExpectedLengthFixedHeader() {
-        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, -1);
+        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, -1, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testVariableSizeWithExpectedLength() {
-        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, 1, PacketDefinition.HeaderType.VARIABLE_SIZE_8);
+        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, 1, PacketDefinition.HeaderType.VARIABLE_SIZE_8, null);
     }
 
 }

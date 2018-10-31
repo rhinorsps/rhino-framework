@@ -1,5 +1,7 @@
 package org.rhino.rsps.net.packet.definition;
 
+import org.rhino.rsps.net.packet.handler.PacketHandler;
+
 public interface PacketDefinition {
 
     /**
@@ -19,6 +21,12 @@ public interface PacketDefinition {
      * @return
      */
     HeaderType getHeaderType();
+
+    /**
+     * The handler for the packet
+     * @return
+     */
+    PacketHandler getHandler();
 
     /**
      * The type of the header. Do not change order!

@@ -19,7 +19,7 @@ public class FixedSizePacketHandlerTest {
 
     private static final int TEST_OPCODE = 69;
     private static final int TEST_LENGTH = 4;
-    private static final PacketDefinition TEST_DEFINITION = new DefaultPacketDefinition(TEST_OPCODE, TEST_LENGTH);
+    private static final PacketDefinition TEST_DEFINITION = new DefaultPacketDefinition(TEST_OPCODE, TEST_LENGTH, null);
 
     private static final FixedHeaderPacketHandler TEST_READER = new FixedHeaderPacketHandler();
 
@@ -42,7 +42,7 @@ public class FixedSizePacketHandlerTest {
     public void testReadMultiple() throws IOException {
         InputStream input = createPacketData();
 
-        PacketDefinition definition1 = new DefaultPacketDefinition(TEST_OPCODE, 2);
+        PacketDefinition definition1 = new DefaultPacketDefinition(TEST_OPCODE, 2, null);
         Packet packet1 = TEST_READER.read(definition1, input);
 
         assertEquals(TEST_OPCODE, packet1.getOpcode());
@@ -52,7 +52,7 @@ public class FixedSizePacketHandlerTest {
         assertEquals(TEST_DATA[1], packet1.getPayload().readByte());
 
 
-        PacketDefinition definition2 = new DefaultPacketDefinition(3, 1);
+        PacketDefinition definition2 = new DefaultPacketDefinition(3, 1, null);
         Packet packet2 = TEST_READER.read(definition2, input);
 
         assertEquals(definition2.getExpectedOpcode(), packet2.getOpcode());
@@ -63,7 +63,7 @@ public class FixedSizePacketHandlerTest {
 
     @Test(expected = BufferUnderflowException.class)
     public void testReadWithLengthTooHigh() throws IOException {
-        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, TEST_LENGTH + 1);
+        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, TEST_LENGTH + 1, null);
         TEST_READER.read(definition, createPacketData());
     }
 

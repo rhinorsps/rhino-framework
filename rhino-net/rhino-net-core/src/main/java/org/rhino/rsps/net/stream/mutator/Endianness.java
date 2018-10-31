@@ -34,7 +34,7 @@ public enum Endianness {
     MIDDLE_ENDIAN(Endianness::middleEndian),
 
     /**
-     * Reverse of above
+     * Reverse of above b[0,1,2,3] becomes b[1,0,3,2]
      */
     INVERSE_MIDDLE_ENDIAN(LITTLE_ENDIAN.mutator.andThen(MIDDLE_ENDIAN.mutator::apply));
 

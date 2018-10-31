@@ -18,7 +18,7 @@ public class Variable16BitPackerHandlerTest {
 
     private static final int TEST_OPCODE = 69;
     private static final int TEST_LENGTH = 3;
-    private static final PacketDefinition TEST_DEFINITION = new DefaultPacketDefinition(TEST_OPCODE, TEST_LENGTH);
+    private static final PacketDefinition TEST_DEFINITION = new DefaultPacketDefinition(TEST_OPCODE, TEST_LENGTH, null);
 
     private static final PacketHandler TEST_READER = new Variable16BitHeaderPacketHandler();
 
@@ -41,7 +41,7 @@ public class Variable16BitPackerHandlerTest {
 
     @Test(expected = BufferUnderflowException.class)
     public void testReadWithLengthTooHigh() throws IOException {
-        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, PacketDefinition.HeaderType.VARIABLE_SIZE_16);
+        PacketDefinition definition = new DefaultPacketDefinition(TEST_OPCODE, PacketDefinition.HeaderType.VARIABLE_SIZE_16, null);
         TEST_READER.read(definition, createPacketData((byte) 0, (byte) 10, (byte) 0));
     }
 

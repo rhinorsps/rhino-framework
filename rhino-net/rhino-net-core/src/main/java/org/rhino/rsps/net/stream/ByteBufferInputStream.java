@@ -27,11 +27,6 @@ public class ByteBufferInputStream implements InputStream {
     }
 
     @Override
-    public InputStream readSlice(int length) throws IOException {
-        return new ByteBufferInputStream(this.read(length));
-    }
-
-    @Override
     public int available() throws IOException {
         return buffer.capacity() - buffer.position();
     }

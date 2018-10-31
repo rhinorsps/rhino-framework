@@ -19,13 +19,6 @@ public interface InputStream extends Stream {
     byte[] read(int length) throws IOException;
 
     /**
-     * Reads a slice of data
-     * @return
-     * @throws IOException
-     */
-    InputStream readSlice(int length) throws IOException;
-
-    /**
      * Reads an amount of data and orders bytes according to endianness
      *
      * @return
@@ -165,5 +158,23 @@ public interface InputStream extends Stream {
     default long readLong() throws IOException {
         return this.readLong(DEFAULT_ENDIANNESS, DEFAULT_OPERAND);
     }
+
+    /**
+     * Reads a string, delimiter is \n
+     * @return
+     * @throws IOException
+     */
+    default String readString(char delimiter) throws IOException {
+        StringBuilder builder = new StringBuilder();
+        for (byte b = (byte) readByte(); b != delimiter; b = (byte) readByte()) {
+            builder.append((char) b);
+        }
+        return builder.toString();
+    }
+
+    default String readString() throws IOException {
+        return readString('\n');
+    }
+
 }
 

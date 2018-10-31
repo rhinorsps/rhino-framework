@@ -7,9 +7,19 @@ import io.netty.handler.timeout.IdleStateHandler;
 import org.rhino.rsps.net.Controller;
 import org.rhino.rsps.net.netty.codec.RS2GameCodec;
 import org.rhino.rsps.net.netty.codec.RS2SessionHandler;
+import org.rhino.rsps.net.packet.definition.PacketDefinitionRepository;
 
 @ChannelHandler.Sharable
 public class NettyInitializer extends ChannelInitializer<SocketChannel> {
+
+    /**
+     * the packet definition repository
+     */
+    private final PacketDefinitionRepository repository;
+
+    public NettyInitializer(PacketDefinitionRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     protected void initChannel(SocketChannel channel) throws Exception {
@@ -23,7 +33,7 @@ public class NettyInitializer extends ChannelInitializer<SocketChannel> {
                 /**
                  * Codec for game messages (bytebuf <--> message)
                  */
-                .addLast("game-codec", new RS2GameCodec())
+                .addLast("game-codec", new RS2GameCodec(repository))
 
                 /*
                  * Disconnect channels that have been idle for 30 seconds or

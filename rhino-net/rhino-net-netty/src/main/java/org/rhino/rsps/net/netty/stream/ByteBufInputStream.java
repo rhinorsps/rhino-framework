@@ -35,11 +35,6 @@ public class ByteBufInputStream implements InputStream {
     }
 
     @Override
-    public InputStream readSlice(int length) throws IOException {
-        return new ByteBufInputStream(this.read(length));
-    }
-
-    @Override
     public int available() throws IOException {
         return byteBuf.readableBytes();
     }

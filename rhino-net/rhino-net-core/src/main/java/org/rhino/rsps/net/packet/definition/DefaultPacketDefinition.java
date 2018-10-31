@@ -1,5 +1,7 @@
 package org.rhino.rsps.net.packet.definition;
 
+import org.rhino.rsps.net.packet.handler.PacketHandler;
+
 public class DefaultPacketDefinition implements PacketDefinition {
 
     /**
@@ -19,11 +21,16 @@ public class DefaultPacketDefinition implements PacketDefinition {
 
     /**
      *
+     */
+    private final PacketHandler handler;
+
+    /**
+     *
      * @param expectedOpcode
      * @param expectedLength
      */
-    public DefaultPacketDefinition(int expectedOpcode, int expectedLength) {
-        this(expectedOpcode, expectedLength, HeaderType.FIXED_SIZE);
+    public DefaultPacketDefinition(int expectedOpcode, int expectedLength, PacketHandler handler) {
+        this(expectedOpcode, expectedLength, HeaderType.FIXED_SIZE, handler);
     }
 
     /**
@@ -31,8 +38,8 @@ public class DefaultPacketDefinition implements PacketDefinition {
      * @param expectedOpcode
      * @param headerType
      */
-    public DefaultPacketDefinition(int expectedOpcode, HeaderType headerType) {
-        this(expectedOpcode, -1, headerType);
+    public DefaultPacketDefinition(int expectedOpcode, HeaderType headerType, PacketHandler handler) {
+        this(expectedOpcode, -1, headerType, handler);
     }
 
     /**
@@ -41,7 +48,7 @@ public class DefaultPacketDefinition implements PacketDefinition {
      * @param expectedLength
      * @param headerType
      */
-    public DefaultPacketDefinition(int expectedOpcode, int expectedLength, HeaderType headerType) {
+    public DefaultPacketDefinition(int expectedOpcode, int expectedLength, HeaderType headerType, PacketHandler handler) {
         if (expectedLength >= 0 && headerType != HeaderType.FIXED_SIZE)
             throw new IllegalArgumentException("expected length cannot be >= 0 without fixed header type");
         if (expectedLength < 0 && headerType == HeaderType.FIXED_SIZE)
@@ -50,6 +57,7 @@ public class DefaultPacketDefinition implements PacketDefinition {
         this.expectedLength = expectedLength;
         this.expectedOpcode = expectedOpcode;
         this.headerType = headerType;
+        this.handler = handler;
     }
 
     @Override
@@ -65,5 +73,10 @@ public class DefaultPacketDefinition implements PacketDefinition {
     @Override
     public HeaderType getHeaderType() {
         return headerType;
+    }
+
+    @Override
+    public PacketHandler getHandler() {
+        return handler;
     }
 }
