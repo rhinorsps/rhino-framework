@@ -1,6 +1,8 @@
 package org.rhino.rsps.net.stream;
 
 import org.junit.Test;
+import org.rhino.rsps.net.stream.ByteBufferInputStream;
+import org.rhino.rsps.net.stream.InputStream;
 import org.rhino.rsps.net.stream.mutator.Endianness;
 
 import java.io.IOException;

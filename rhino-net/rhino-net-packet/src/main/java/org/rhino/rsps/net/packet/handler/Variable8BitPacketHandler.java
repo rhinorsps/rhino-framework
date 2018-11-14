@@ -13,12 +13,12 @@ import java.nio.BufferUnderflowException;
 /**
  * FIXME: This can obviously be made abstract to combine both 8 and 16 bit headers
  */
-public class Variable8BitHeaderPacketHandler extends AbstractPacketHandler {
+public class Variable8BitPacketHandler extends AbstractPacketHandler {
 
     /**
      *
      */
-    public Variable8BitHeaderPacketHandler() {
+    public Variable8BitPacketHandler() {
         super(PacketDefinition.HeaderType.VARIABLE_SIZE_8);
     }
 

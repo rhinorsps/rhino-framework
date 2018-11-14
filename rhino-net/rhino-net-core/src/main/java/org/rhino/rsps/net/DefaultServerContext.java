@@ -1,11 +1,12 @@
 package org.rhino.rsps.net;
 
+import org.rhino.rsps.net.ServerContext;
 import org.rhino.rsps.net.packet.definition.PacketDefinitionRepository;
 import org.rhino.rsps.net.session.SessionManager;
 
 import java.net.InetSocketAddress;
 
-public class ConfigurableServerContext extends AbstractServerContext {
+public class DefaultServerContext implements ServerContext {
 
     private InetSocketAddress hostAddress;
     private PacketDefinitionRepository repository;

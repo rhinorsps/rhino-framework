@@ -20,7 +20,7 @@ public class FixedSizePacketHandlerTest {
     private static final int TEST_LENGTH = 4;
     private static final PacketDefinition TEST_DEFINITION = new DefaultPacketDefinition(TEST_OPCODE, TEST_LENGTH, null);
 
-    private static final FixedHeaderPacketHandler TEST_READER = new FixedHeaderPacketHandler();
+    private static final DefaultPacketHandler TEST_READER = new DefaultPacketHandler();
 
     private static final byte[] TEST_DATA = {
             1, 2, 3, 4

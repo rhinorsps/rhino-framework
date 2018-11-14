@@ -19,7 +19,7 @@ public class Variable16BitPackerHandlerTest {
     private static final int TEST_LENGTH = 3;
     private static final PacketDefinition TEST_DEFINITION = new DefaultPacketDefinition(TEST_OPCODE, TEST_LENGTH, null);
 
-    private static final PacketHandler TEST_READER = new Variable16BitHeaderPacketHandler();
+    private static final PacketHandler TEST_READER = new Variable16BitPacketHandler();
 
     private static final byte[] TEST_DATA = {
             0, TEST_LENGTH, 2, 3, 4

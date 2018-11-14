@@ -13,6 +13,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.rhino-rsps</groupId>
+            <artifactId>rhino-net-session</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.rhino-rsps</groupId>
+            <artifactId>rhino-net-packet</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
@@ -20,11 +30,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.rhino-rsps</groupId>
-            <artifactId>rhino-net-stream</artifactId>
-            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

@@ -1,5 +1,8 @@
 package org.rhino.rsps.net;
 
+import org.rhino.rsps.net.Server;
+import org.rhino.rsps.net.ServerContext;
+
 public abstract class AbstractServer implements Server {
 
     /**

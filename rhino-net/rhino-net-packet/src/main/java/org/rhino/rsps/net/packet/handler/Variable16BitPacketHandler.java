@@ -10,34 +10,37 @@ import org.rhino.rsps.net.stream.OutputStream;
 import java.io.IOException;
 import java.nio.BufferUnderflowException;
 
-public class FixedHeaderPacketHandler extends AbstractPacketHandler {
+/**
+ * FIXME: This can obviously be made abstract to combine both 8 and 16 bit headers
+ */
+public class Variable16BitPacketHandler extends AbstractPacketHandler {
 
     /**
      *
      */
-    public FixedHeaderPacketHandler() {
-        super (PacketDefinition.HeaderType.FIXED_SIZE);
+    public Variable16BitPacketHandler() {
+        super(PacketDefinition.HeaderType.VARIABLE_SIZE_16);
     }
 
     @Override
     public Packet read(PacketDefinition definition, InputStream in) throws IOException {
-        if (in.available() < definition.getExpectedLength() + 1)
+        if (in.available() < definition.getExpectedLength() + 3)
             throw new BufferUnderflowException();
 
         int opcode = in.readUnsignedByte();
         if (opcode != definition.getExpectedOpcode())
             throw new IllegalStateException("opcode mismatch [" + opcode + "," + definition.getExpectedOpcode() + "]");
 
-        return new DefaultPacket(opcode, definition, new ByteBufferInputStream(in.read(definition.getExpectedLength())));
+        return new DefaultPacket(opcode, definition, new ByteBufferInputStream(in.read(in.readUnsignedShort())));
     }
 
     @Override
     public void write(Packet packet, OutputStream out) throws IOException {
-        if (out.available() < packet.getDefinition().getExpectedLength() + 1)
+        if (out.available() < packet.getDefinition().getExpectedLength() + 3)
             throw new BufferUnderflowException();
 
         out.writeByte(packet.getOpcode());
+        out.writeShort(packet.getPayload().available());
         out.write(packet.getPayload());
     }
-
 }

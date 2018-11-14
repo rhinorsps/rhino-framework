@@ -19,7 +19,7 @@ public class Variable8BitPacketHandlerTest {
     private static final int TEST_LENGTH = 3;
     private static final PacketDefinition TEST_DEFINITION = new DefaultPacketDefinition(TEST_OPCODE, TEST_LENGTH, null);
 
-    private static final PacketHandler TEST_READER = new Variable8BitHeaderPacketHandler();
+    private static final PacketHandler TEST_READER = new Variable8BitPacketHandler();
 
     private static final byte[] TEST_DATA = {
             TEST_LENGTH, 2, 3, 4

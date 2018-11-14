@@ -14,7 +14,7 @@ public interface PacketDefinitionRepository {
      *
      */
     enum SubRepository {
-        UPSTREAM, DOWNSTREAM;
+        IN, OUT;
     }
 
 }

@@ -30,7 +30,7 @@ public class NettySession implements Session {
     }
 
     @Override
-    public SessionContext getSessionContext() {
+    public SessionContext getContext() {
         return null;
     }
 

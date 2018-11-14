@@ -1,6 +1,8 @@
 package org.rhino.rsps.net.stream;
 
 import org.junit.Test;
+import org.rhino.rsps.net.stream.ByteBufferOutputStream;
+import org.rhino.rsps.net.stream.OutputStream;
 
 import java.io.IOException;
 import java.nio.BufferOverflowException;
