@@ -2,7 +2,6 @@ package org.rhino.rsps.net.packet.handler;
 
 import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.definition.PacketDefinition;
-import org.rhino.rsps.net.session.SessionContext;
 import org.rhino.rsps.net.stream.InputStream;
 import org.rhino.rsps.net.stream.OutputStream;
 

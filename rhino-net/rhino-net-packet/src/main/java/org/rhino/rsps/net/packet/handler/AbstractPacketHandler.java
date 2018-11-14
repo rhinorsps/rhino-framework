@@ -2,7 +2,6 @@ package org.rhino.rsps.net.packet.handler;
 
 import com.google.common.collect.Sets;
 import org.rhino.rsps.net.packet.definition.PacketDefinition;
-import org.rhino.rsps.net.packet.handler.PacketHandler;
 
 import java.util.Set;
 
