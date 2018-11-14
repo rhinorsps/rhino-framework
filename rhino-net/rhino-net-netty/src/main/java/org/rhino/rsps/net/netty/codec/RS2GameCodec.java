@@ -5,17 +5,15 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
 import org.rhino.rsps.net.netty.stream.ByteBufInputStream;
 import org.rhino.rsps.net.netty.stream.ByteBufOutputStream;
-import org.rhino.rsps.net.netty.util.Attributes;
+import org.rhino.rsps.net.netty.Attributes;
 import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.definition.PacketDefinition;
 import org.rhino.rsps.net.packet.definition.PacketDefinitionRepository;
-import org.rhino.rsps.net.packet.handler.PacketHandler;
 import org.rhino.rsps.net.session.Session;
 import org.rhino.rsps.net.session.SessionContext;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 import static io.netty.util.internal.ObjectUtil.checkNonEmpty;
 import static io.netty.util.internal.ObjectUtil.checkNotNull;

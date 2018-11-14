@@ -1,4 +1,4 @@
-package org.rhino.rsps.net.netty.util;
+package org.rhino.rsps.net.netty;
 
 import io.netty.util.AttributeKey;
 import org.rhino.rsps.net.session.Session;

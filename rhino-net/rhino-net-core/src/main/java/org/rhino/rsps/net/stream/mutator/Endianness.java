@@ -79,7 +79,7 @@ public enum Endianness {
      * @return
      */
     private static byte[] middleEndian(byte[] bytes) {
-        checkArgument(bytes.length == 4, "middle endian only available to 4-byte integers");
+        checkArgument(bytes.length == 4, "middle endian is only available to 32-bit integers");
         return ByteBuffer.allocate(4)
                 .put(bytes, 2, 2)
                 .put(bytes, 0, 2).array();

@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.definition.DefaultPacketDefinition;
 import org.rhino.rsps.net.packet.definition.PacketDefinition;
-import org.rhino.rsps.net.packet.handler.impl.Variable8BitHeaderPacketHandler;
 import org.rhino.rsps.net.stream.ByteBufferInputStream;
 import org.rhino.rsps.net.stream.InputStream;
 

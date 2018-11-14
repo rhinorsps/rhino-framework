@@ -1,9 +1,8 @@
-package org.rhino.rsps.net.packet.handler.impl;
+package org.rhino.rsps.net.packet.handler;
 
 import org.rhino.rsps.net.packet.DefaultPacket;
 import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.definition.PacketDefinition;
-import org.rhino.rsps.net.session.SessionContext;
 import org.rhino.rsps.net.stream.ByteBufferInputStream;
 import org.rhino.rsps.net.stream.InputStream;
 import org.rhino.rsps.net.stream.OutputStream;
@@ -28,7 +27,11 @@ public class Variable16BitHeaderPacketHandler extends AbstractPacketHandler {
         if (in.available() < definition.getExpectedLength() + 3)
             throw new BufferUnderflowException();
 
-        return new DefaultPacket(in.readUnsignedByte(), definition, new ByteBufferInputStream(in.read(in.readUnsignedShort())));
+        int opcode = in.readUnsignedByte();
+        if (opcode != definition.getExpectedOpcode())
+            throw new IllegalStateException("opcode mismatch [" + opcode + "," + definition.getExpectedOpcode() + "]");
+
+        return new DefaultPacket(opcode, definition, new ByteBufferInputStream(in.read(in.readUnsignedShort())));
     }
 
     @Override

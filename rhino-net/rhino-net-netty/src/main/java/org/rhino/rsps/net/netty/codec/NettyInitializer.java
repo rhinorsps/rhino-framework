@@ -4,21 +4,18 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
-import org.rhino.rsps.net.Controller;
-import org.rhino.rsps.net.netty.codec.RS2GameCodec;
-import org.rhino.rsps.net.netty.codec.RS2SessionHandler;
-import org.rhino.rsps.net.packet.definition.PacketDefinitionRepository;
+import org.rhino.rsps.net.ServerContext;
 
 @ChannelHandler.Sharable
 public class NettyInitializer extends ChannelInitializer<SocketChannel> {
 
     /**
-     * the packet definition repository
+     * The context of this controller
      */
-    private final PacketDefinitionRepository repository;
+    private final ServerContext context;
 
-    public NettyInitializer(PacketDefinitionRepository repository) {
-        this.repository = repository;
+    public NettyInitializer(ServerContext context) {
+        this.context = context;
     }
 
     @Override
@@ -28,12 +25,12 @@ public class NettyInitializer extends ChannelInitializer<SocketChannel> {
                 /**
                  * Associates and destroys sessions for connections
                  */
-                .addLast("session-handler", new RS2SessionHandler())
+                .addLast("session-handler", new RS2SessionHandler(context.getSessionManager()))
 
                 /**
                  * Codec for game messages (bytebuf <--> message)
                  */
-                .addLast("game-codec", new RS2GameCodec(repository))
+                .addLast("game-codec", new RS2GameCodec(context.getRepository()))
 
                 /*
                  * Disconnect channels that have been idle for 30 seconds or

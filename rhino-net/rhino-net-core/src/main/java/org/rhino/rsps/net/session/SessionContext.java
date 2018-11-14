@@ -1,8 +1,20 @@
 package org.rhino.rsps.net.session;
 
+import java.net.InetSocketAddress;
+
 public interface SessionContext {
 
+    /**
+     *
+     * @return
+     */
     State state();
+
+    /**
+     *
+     * @return
+     */
+    InetSocketAddress address();
 
     /**
      *

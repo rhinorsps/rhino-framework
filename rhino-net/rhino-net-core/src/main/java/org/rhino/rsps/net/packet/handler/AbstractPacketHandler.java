@@ -1,4 +1,4 @@
-package org.rhino.rsps.net.packet.handler.impl;
+package org.rhino.rsps.net.packet.handler;
 
 import com.google.common.collect.Sets;
 import org.rhino.rsps.net.packet.definition.PacketDefinition;

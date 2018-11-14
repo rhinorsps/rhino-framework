@@ -9,6 +9,7 @@
     <version>1.0</version>
     <modules>
         <module>rhino-starter-web-netty</module>
+        <module>rhino-starter-core</module>
     </modules>
     <packaging>pom</packaging>
 
