@@ -1,5 +1,6 @@
 package org.rhino.rsps.net.packet.handler;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.definition.DefaultPacketDefinition;
@@ -30,11 +31,11 @@ public class FixedSizePacketHandlerTest {
     public void testNormalRead() throws IOException {
         Packet packet = TEST_READER.read(TEST_DEFINITION, createPacketData());
 
-        assertEquals(TEST_OPCODE, packet.getOpcode());
-        assertEquals(TEST_LENGTH, packet.getPayload().available());
-        assertEquals(TEST_DEFINITION, packet.getDefinition());
+        Assert.assertEquals(TEST_OPCODE, packet.getOpcode());
+        Assert.assertEquals(TEST_LENGTH, packet.getPayload().available());
+        Assert.assertEquals(TEST_DEFINITION, packet.getDefinition());
 
-        assertArrayEquals(TEST_DATA, packet.getPayload().read(TEST_LENGTH));
+        Assert.assertArrayEquals(TEST_DATA, packet.getPayload().read(TEST_LENGTH));
     }
 
     @Test
@@ -44,20 +45,20 @@ public class FixedSizePacketHandlerTest {
         PacketDefinition definition1 = new DefaultPacketDefinition(TEST_OPCODE, 2, null);
         Packet packet1 = TEST_READER.read(definition1, input);
 
-        assertEquals(TEST_OPCODE, packet1.getOpcode());
-        assertEquals(2, packet1.getPayload().available());
-        assertEquals(definition1, packet1.getDefinition());
-        assertEquals(TEST_DATA[0], packet1.getPayload().readByte());
-        assertEquals(TEST_DATA[1], packet1.getPayload().readByte());
+        Assert.assertEquals(TEST_OPCODE, packet1.getOpcode());
+        Assert.assertEquals(2, packet1.getPayload().available());
+        Assert.assertEquals(definition1, packet1.getDefinition());
+        Assert.assertEquals(TEST_DATA[0], packet1.getPayload().readByte());
+        Assert.assertEquals(TEST_DATA[1], packet1.getPayload().readByte());
 
 
         PacketDefinition definition2 = new DefaultPacketDefinition(3, 1, null);
         Packet packet2 = TEST_READER.read(definition2, input);
 
-        assertEquals(definition2.getExpectedOpcode(), packet2.getOpcode());
-        assertEquals(definition2.getExpectedLength(), packet2.getPayload().available());
-        assertEquals(definition2, packet2.getDefinition());
-        assertEquals(TEST_DATA[3], packet2.getPayload().readByte());
+        Assert.assertEquals(definition2.getExpectedOpcode(), packet2.getOpcode());
+        Assert.assertEquals(definition2.getExpectedLength(), packet2.getPayload().available());
+        Assert.assertEquals(definition2, packet2.getDefinition());
+        Assert.assertEquals(TEST_DATA[3], packet2.getPayload().readByte());
     }
 
     @Test(expected = BufferUnderflowException.class)

@@ -1,7 +1,6 @@
 package org.rhino.rsps.net.netty;
 
 import io.netty.util.AttributeKey;
-import org.rhino.rsps.net.session.Session;
 
 public final class Attributes {
 

@@ -1,25 +1,24 @@
 package org.rhino.rsps.net;
 
-import java.net.InetSocketAddress;
-
-public interface Server {
+public interface Server extends AutoCloseable {
 
     /**
-     * @throws Exception
-     */
-    void serve() throws Exception;
-
-    /**
-     * Shuts the service down
+     * Publishes the server
      *
      * @throws Exception
      */
-    void shutdown() throws Exception;
+    void publish() throws Exception;
 
     /**
+     * Terminates the server
      *
-     * @return
+     * @throws Exception
      */
-    ServerContext getServerContext();
+    void terminate() throws Exception;
+
+    @Override
+    default void close() throws Exception {
+        this.terminate(); // FIXME
+    }
 
 }

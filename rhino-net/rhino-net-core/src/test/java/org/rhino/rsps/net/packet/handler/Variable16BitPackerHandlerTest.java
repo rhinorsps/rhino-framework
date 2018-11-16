@@ -1,5 +1,6 @@
 package org.rhino.rsps.net.packet.handler;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.definition.DefaultPacketDefinition;
@@ -29,13 +30,13 @@ public class Variable16BitPackerHandlerTest {
     public void testNormalRead() throws IOException {
         Packet packet = TEST_READER.read(TEST_DEFINITION, createPacketData(TEST_DATA));
 
-        assertEquals(TEST_OPCODE, packet.getOpcode());
-        assertEquals(TEST_LENGTH, packet.getPayload().available());
-        assertEquals(TEST_DEFINITION, packet.getDefinition());
+        Assert.assertEquals(TEST_OPCODE, packet.getOpcode());
+        Assert.assertEquals(TEST_LENGTH, packet.getPayload().available());
+        Assert.assertEquals(TEST_DEFINITION, packet.getDefinition());
 
-        assertEquals(TEST_DATA[2], packet.getPayload().readByte());
-        assertEquals(TEST_DATA[3], packet.getPayload().readByte());
-        assertEquals(TEST_DATA[4], packet.getPayload().readByte());
+        Assert.assertEquals(TEST_DATA[2], packet.getPayload().readByte());
+        Assert.assertEquals(TEST_DATA[3], packet.getPayload().readByte());
+        Assert.assertEquals(TEST_DATA[4], packet.getPayload().readByte());
     }
 
     @Test(expected = BufferUnderflowException.class)

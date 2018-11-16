@@ -9,21 +9,20 @@ import org.rhino.rsps.net.netty.stream.ByteBufOutputStream;
 import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.definition.PacketDefinition;
 import org.rhino.rsps.net.packet.definition.PacketDefinitionRepository;
-import org.rhino.rsps.net.session.Session;
 
 import java.io.IOException;
 import java.util.List;
 
 import static io.netty.util.internal.ObjectUtil.checkNotNull;
 
-public class RS2GameCodec extends ByteToMessageCodec<Packet> {
+public class PacketCodec extends ByteToMessageCodec<Packet> {
 
     /**
      *
      */
     private final PacketDefinitionRepository repository;
 
-    public RS2GameCodec(PacketDefinitionRepository repository) {
+    public PacketCodec(PacketDefinitionRepository repository) {
         this.repository = checkNotNull(repository, "packetRepository");
     }
 

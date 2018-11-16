@@ -4,7 +4,6 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
-import org.rhino.rsps.net.ServerContext;
 
 @ChannelHandler.Sharable
 public class NettyInitializer extends ChannelInitializer<SocketChannel> {
@@ -30,7 +29,7 @@ public class NettyInitializer extends ChannelInitializer<SocketChannel> {
                 /**
                  * Codec for game messages (bytebuf <--> message)
                  */
-                .addLast("game-codec", new RS2GameCodec(context.getRepository()))
+                .addLast("game-codec", new PacketCodec(context.getRepository()))
 
                 /*
                  * Disconnect channels that have been idle for 30 seconds or
