@@ -9,16 +9,4 @@ public interface Server extends AutoCloseable {
      */
     void publish() throws Exception;
 
-    /**
-     * Terminates the server
-     *
-     * @throws Exception
-     */
-    void terminate() throws Exception;
-
-    @Override
-    default void close() throws Exception {
-        this.terminate(); // FIXME
-    }
-
 }

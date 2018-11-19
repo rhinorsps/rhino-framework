@@ -44,4 +44,9 @@ public class ByteBufferOutputStream implements OutputStream {
     public int capacity() {
         return buffer.capacity();
     }
+
+    @Override
+    public byte[] array() {
+        return buffer.array();
+    }
 }

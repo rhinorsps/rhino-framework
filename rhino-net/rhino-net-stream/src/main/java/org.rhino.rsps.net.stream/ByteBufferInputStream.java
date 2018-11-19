@@ -46,4 +46,8 @@ public class ByteBufferInputStream implements InputStream {
         return buffer.capacity();
     }
 
+    @Override
+    public byte[] array() {
+        return buffer.array();
+    }
 }

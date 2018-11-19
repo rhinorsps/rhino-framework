@@ -46,4 +46,8 @@ public class ByteBufOutputStream implements OutputStream {
         return byteBuf.capacity();
     }
 
+    @Override
+    public byte[] array() {
+        return byteBuf.array();
+    }
 }

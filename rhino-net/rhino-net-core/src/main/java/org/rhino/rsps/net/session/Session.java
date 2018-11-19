@@ -6,6 +6,13 @@ import java.util.concurrent.CompletableFuture;
 public interface Session {
 
     /**
+     * Gets the session context
+     *
+     * @return
+     */
+    SessionContext getContext();
+
+    /**
      * Marks a message ready for reading
      *
      * @param message

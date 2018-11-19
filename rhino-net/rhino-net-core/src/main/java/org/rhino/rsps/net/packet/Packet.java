@@ -18,11 +18,4 @@ public interface Packet {
      */
     PacketDescriptor getDescriptor();
 
-    /**
-     * Gets the packet handler
-     *
-     * @return
-     */
-    PacketHandler getHandler();
-
 }

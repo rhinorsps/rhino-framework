@@ -1,5 +1,7 @@
 package org.rhino.rsps.net.session;
 
+import java.net.InetSocketAddress;
+
 public interface SessionContext {
 
     /**
@@ -8,5 +10,32 @@ public interface SessionContext {
      * @return
      */
     SessionManager getSessionManager();
+
+    /**
+     * The address of the session
+     *
+     * @return
+     */
+    InetSocketAddress getRemoteAddress();
+
+    /**
+     *
+     * @return
+     */
+    State getState();
+
+    /**
+     *
+     * @param state
+     * @return
+     */
+    State setState(State state);
+
+    /**
+     * The state of the connection
+     */
+    enum State {
+        CONNECTED, AUTHENTICATED, ACTIVE, IDLE, DISCONNECTED;
+    }
 
 }

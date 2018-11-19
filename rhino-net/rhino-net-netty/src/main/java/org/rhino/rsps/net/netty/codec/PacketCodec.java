@@ -3,47 +3,55 @@ package org.rhino.rsps.net.netty.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
-import org.rhino.rsps.net.netty.Attributes;
 import org.rhino.rsps.net.netty.stream.ByteBufInputStream;
-import org.rhino.rsps.net.netty.stream.ByteBufOutputStream;
 import org.rhino.rsps.net.packet.Packet;
-import org.rhino.rsps.net.packet.definition.PacketDefinition;
-import org.rhino.rsps.net.packet.definition.PacketDefinitionRepository;
+import org.rhino.rsps.net.packet.PacketDescriptor;
+import org.rhino.rsps.net.packet.PacketRepository;
+import org.rhino.rsps.net.packet.SimplePacket;
 
-import java.io.IOException;
 import java.util.List;
-
-import static io.netty.util.internal.ObjectUtil.checkNotNull;
 
 public class PacketCodec extends ByteToMessageCodec<Packet> {
 
     /**
      *
      */
-    private final PacketDefinitionRepository repository;
+    private final PacketRepository repository;
 
-    public PacketCodec(PacketDefinitionRepository repository) {
-        this.repository = checkNotNull(repository, "packetRepository");
+    public PacketCodec(PacketRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    protected void encode(ChannelHandlerContext channelHandlerContext, Packet message, ByteBuf byteBuf) throws Exception {
-        if (message.getPayload() == null || message.getPayload().isClosed())
-            throw new IOException("unreadable message");
-
-        message.getDefinition().getHandler().write(message, new ByteBufOutputStream(byteBuf));
+    protected void encode(ChannelHandlerContext context, Packet packet, ByteBuf out) throws Exception {
+        out.writeBytes(packet.getPayload().array());
     }
 
     @Override
-    protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> out) throws Exception {
-        if (byteBuf.readableBytes() <= 0 || !byteBuf.isReadable())
-            throw new IOException("unreadable buffer");
+    protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf in, List<Object> out) throws Exception {
+        int opcode = in.readUnsignedByte();
+        PacketDescriptor descriptor = repository.getInputStreamDescriptor(opcode, null);
+        out.add(new SimplePacket(new ByteBufInputStream(in.readBytes(getLength(in, descriptor))), descriptor));
+    }
 
-        int opcode = byteBuf.getUnsignedByte(0);
-        Session session = channelHandlerContext.channel().attr(Attributes.SESSION_ATTRIBUTE_KEY).get();
-
-        PacketDefinition definition = repository.get(opcode, PacketDefinitionRepository.SubRepository.IN);
-        out.add(definition.getHandler().read(definition,  new ByteBufInputStream(byteBuf)));
+    /**
+     * Gets the length of the packet
+     *
+     * @param descriptor
+     * @param in
+     * @return
+     */
+    private int getLength(ByteBuf in, PacketDescriptor descriptor) {
+        switch (descriptor.getHeader()) {
+            case FIXED:
+                return descriptor.getExpectedLength();
+            case VARIABLE_8_BIT:
+                return in.readUnsignedByte();
+            case VARIABLE_16_BIT:
+                return in.readUnsignedShort();
+            default:
+                throw new IllegalStateException("unrecognized packet header");
+        }
     }
 
 }

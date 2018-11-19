@@ -53,4 +53,9 @@ public class ByteBufInputStream implements InputStream {
     public boolean isClosed() throws IOException {
         return byteBuf.refCnt() <= 0;
     }
+
+    @Override
+    public byte[] array() {
+        return byteBuf.array();
+    }
 }

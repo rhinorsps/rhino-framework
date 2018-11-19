@@ -8,9 +8,22 @@ public interface PacketDescriptor {
     int getOpcode();
 
     /**
+     *
+     * @return
+     */
+    int getExpectedLength();
+
+    /**
      * @return
      */
     Header getHeader();
+
+    /**
+     * The class' model
+     *
+     * @return
+     */
+    Class<?> getModel();
 
     /**
      *

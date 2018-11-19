@@ -8,15 +8,13 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import org.rhino.rsps.net.netty.codec.NettyInitializer;
+import org.rhino.rsps.net.AsyncServer;
+import org.rhino.rsps.net.ServerContext;
+import org.rhino.rsps.net.netty.codec.ChannelPipelineInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ExecutorService;
-
-import static com.google.common.base.Preconditions.checkState;
-
-public class NettyServer extends AsyncServer {
+public class NettyServer extends AsyncServer<ChannelFuture> {
 
     /**
      * The static logger for this class
@@ -24,7 +22,12 @@ public class NettyServer extends AsyncServer {
     private static final Logger logger = LoggerFactory.getLogger(NettyServer.class);
 
     /**
-     *
+     * The server context
+     */
+    private final ServerContext context;
+
+    /**
+     * The channel initializer
      */
     private final ChannelInitializer<SocketChannel> initializer;
 
@@ -44,14 +47,12 @@ public class NettyServer extends AsyncServer {
     private final EventLoopGroup worker_group = new NioEventLoopGroup();
 
     public NettyServer(ServerContext context) {
-        super(context);
-        this.initializer = new NettyInitializer(context);
+        this.context = context;
+        this.initializer = new ChannelPipelineInitializer(context);
     }
 
-    /**
-     * Starts the netty service
-     */
-    public ChannelFuture serveAsync(ExecutorService service) throws Exception {
+    @Override
+    public ChannelFuture asyncPublish() throws Exception {
         try {
             bootstrap.group(boss_group, worker_group)
                     .channel(NioServerSocketChannel.class)
@@ -59,8 +60,8 @@ public class NettyServer extends AsyncServer {
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
 
-            ChannelFuture f = bootstrap.bind(super.getServerContext().getHostAddress()).sync();
-            logger.info("Service started on {}:{}", super.getServerContext().getHostAddress());
+            ChannelFuture f = bootstrap.bind(this.context.getHostAddress()).sync();
+            logger.info("Service started on {}:{}", this.context.getHostAddress().getHostName(), this.context.getHostAddress().getPort());
             return f.channel().closeFuture().sync();
         } finally {
             worker_group.shutdownGracefully();
@@ -69,7 +70,7 @@ public class NettyServer extends AsyncServer {
     }
 
     @Override
-    public void shutdownAsync(ExecutorService service) throws Exception {
+    public void asyncClose() throws Exception {
         worker_group.shutdownGracefully();
         boss_group.shutdownGracefully();
     }

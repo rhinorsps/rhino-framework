@@ -8,7 +8,7 @@ import java.nio.ByteBuffer;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-public interface InputStream extends Stream {
+public interface InputStream extends ByteStream {
 
     /**
      * Reads an amount of data

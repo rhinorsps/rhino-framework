@@ -5,7 +5,7 @@ import org.rhino.rsps.net.stream.mutator.Operand;
 
 import java.io.IOException;
 
-interface Stream extends AutoCloseable {
+public interface ByteStream extends AutoCloseable {
 
     /**
      * The default endianness should none be given
@@ -16,6 +16,13 @@ interface Stream extends AutoCloseable {
      * The default operand, should none be given
      */
     Operand DEFAULT_OPERAND = Operand.NO_OP;
+
+    /**
+     * Gets an array of bytes
+     *
+     * @return
+     */
+    byte[] array();
 
     /**
      * amount of data available

@@ -6,7 +6,7 @@ import org.rhino.rsps.net.stream.mutator.Operand;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
-public interface OutputStream extends Stream {
+public interface OutputStream extends ByteStream {
 
     /**
      * Reads an amount of data

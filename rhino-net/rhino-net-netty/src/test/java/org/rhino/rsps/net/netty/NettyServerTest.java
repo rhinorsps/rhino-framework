@@ -2,6 +2,10 @@ package org.rhino.rsps.net.netty;
 
 
 import org.junit.Test;
+import org.rhino.rsps.net.Server;
+import org.rhino.rsps.net.ServerContext;
+import org.rhino.rsps.net.packet.PacketRepository;
+import org.rhino.rsps.net.session.SessionManager;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -12,18 +16,19 @@ public class NettyServerTest {
     private static final String host = "localhost";
 
     /**
-     * FIXME: exceptions will never cause this to fail, exceptions are caught and handled internally ...
+     * FIXME: exceptions will never cause this to fail, exceptions are caught and handled internally in netty ...
      */
     @Test
     public void testNettyController() throws Exception {
-        Server nettyServer = new NettyServer(new DummyServerContext());
-        nettyServer.serve();
+        ServerContext context = new DummyServerContext();
 
-        Socket socket = new Socket();
-        socket.connect(nettyServer.getServerContext().getHostAddress());
-        socket.close();
+        try (Server nettyServer = new NettyServer(context)) {
+            nettyServer.publish();
 
-        nettyServer.shutdown();
+            Socket socket = new Socket();
+            socket.connect(context.getHostAddress());
+            socket.close();
+        }
     }
 
     private class DummyServerContext implements ServerContext {
@@ -34,33 +39,12 @@ public class NettyServerTest {
         }
 
         @Override
-        public PacketDefinitionRepository getRepository() {
-            return new DummyRepository();
+        public PacketRepository getPacketRepository() {
+            return null;
         }
 
         @Override
         public SessionManager getSessionManager() {
-            return new DummySessionManager();
-        }
-
-    }
-
-    private class DummySessionManager implements SessionManager {
-        @Override
-        public Session register(Session session) {
-            return null;
-        }
-
-        @Override
-        public Session remove(Session session) {
-            return null;
-        }
-    }
-
-    private class DummyRepository implements PacketDefinitionRepository {
-
-        @Override
-        public PacketDefinition get(int opcode, SubRepository subRepository) {
             return null;
         }
     }
