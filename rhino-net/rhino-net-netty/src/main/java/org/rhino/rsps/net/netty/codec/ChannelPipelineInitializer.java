@@ -30,7 +30,7 @@ public class ChannelPipelineInitializer extends ChannelInitializer<SocketChannel
                 /**
                  * Codec for game messages (bytebuf <--> message)
                  */
-                .addLast("packet-codec", new PacketCodec(context.getPacketRepository()))
+                .addLast("packet", new PacketCodec(context.getPacketRepository()))
 
                 /**
                  * Codec for game messages (bytebuf <--> message)

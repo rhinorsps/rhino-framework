@@ -1,12 +1,14 @@
 package org.rhino.rsps.net.packet;
 
 
+import org.rhino.rsps.net.stream.ByteStream;
 import org.rhino.rsps.net.stream.InputStream;
 
 public interface Packet {
 
     /**
      * The packet's payload
+     *
      * @return
      */
     InputStream getPayload();
