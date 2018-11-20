@@ -5,6 +5,9 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import org.rhino.rsps.net.ServerContext;
+import org.rhino.rsps.net.session.SessionManager;
+
+import java.net.Socket;
 
 @ChannelHandler.Sharable
 public class ChannelPipelineInitializer extends ChannelInitializer<SocketChannel> {
@@ -25,7 +28,7 @@ public class ChannelPipelineInitializer extends ChannelInitializer<SocketChannel
                 /**
                  * Codec for game messages (bytebuf <--> message)
                  */
-                .addLast("session", new SessionHandler(context.getSessionManager()))
+                .addLast("session", new SessionHandler((SessionManager<SocketChannel>) context.getSessionManager()))
 
                 /**
                  * Codec for game messages (bytebuf <--> message)

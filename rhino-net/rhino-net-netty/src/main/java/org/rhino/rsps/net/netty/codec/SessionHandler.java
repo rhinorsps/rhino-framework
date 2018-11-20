@@ -2,6 +2,7 @@ package org.rhino.rsps.net.netty.codec;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.socket.SocketChannel;
 import io.netty.util.ReferenceCountUtil;
 import org.rhino.rsps.net.netty.Attributes;
 import org.rhino.rsps.net.session.Session;
@@ -15,9 +16,9 @@ public class SessionHandler extends SimpleChannelInboundHandler<Object> {
     /**
      * The session manager
      */
-    private final SessionManager manager;
+    private final SessionManager<SocketChannel> manager;
 
-    public SessionHandler(SessionManager manager) {
+    public SessionHandler(SessionManager<SocketChannel> manager) {
         this.manager = manager;
     }
 
@@ -35,7 +36,7 @@ public class SessionHandler extends SimpleChannelInboundHandler<Object> {
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        Session session = this.manager.createAndRegister((InetSocketAddress) ctx.channel().remoteAddress());
+        Session session = this.manager.createAndRegister((InetSocketAddress) ctx.channel().remoteAddress(), (SocketChannel) ctx.channel());
         ctx.channel().attr(Attributes.SESSION).setIfAbsent(session);
         session.getContext().setState(SessionContext.State.CONNECTED);
     }

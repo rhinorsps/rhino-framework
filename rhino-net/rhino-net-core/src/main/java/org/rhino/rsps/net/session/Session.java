@@ -3,7 +3,7 @@ package org.rhino.rsps.net.session;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
-public interface Session {
+public interface Session<CHANNEL> {
 
     /**
      * Gets the session context

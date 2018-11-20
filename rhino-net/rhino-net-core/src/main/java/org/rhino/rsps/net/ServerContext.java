@@ -23,6 +23,6 @@ public interface ServerContext {
      *
      * @return
      */
-    SessionManager getSessionManager();
+    SessionManager<?> getSessionManager();
 
 }

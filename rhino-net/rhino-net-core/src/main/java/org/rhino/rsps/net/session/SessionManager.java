@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
 
-public interface SessionManager {
+public interface SessionManager<CHANNEL> {
 
     /**
      *
@@ -12,7 +12,7 @@ public interface SessionManager {
      * @return
      * @throws Exception
      */
-    Session create(InetSocketAddress address) throws Exception;
+    Session create(InetSocketAddress address, CHANNEL channel) throws Exception;
 
     /**
      *
@@ -42,8 +42,8 @@ public interface SessionManager {
      * @return
      * @throws Exception
      */
-    default Session createAndRegister(InetSocketAddress address) throws Exception {
-        Session session = this.create(address);
+    default Session createAndRegister(InetSocketAddress address, CHANNEL channel) throws Exception {
+        Session session = this.create(address, channel);
         this.register(session);
         return session;
     }

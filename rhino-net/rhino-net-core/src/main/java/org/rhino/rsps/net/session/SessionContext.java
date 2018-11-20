@@ -9,7 +9,7 @@ public interface SessionContext {
      *
      * @return
      */
-    SessionManager getSessionManager();
+    SessionManager<?> getSessionManager();
 
     /**
      * The address of the session
