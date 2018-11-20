@@ -3,9 +3,9 @@ package org.rhino.rsps.model.entity.object;
 import org.rhino.rsps.model.entity.Entity;
 
 /**
- * Called RSObject instead of Object as to not conflict with java.lang.Object
+ * Called GameObject instead of Object as to not conflict with java.lang.Object
  */
-public interface RSObject extends Entity {
+public interface GameObject extends Entity {
 
     /**
      * The object's orientation
@@ -24,6 +24,6 @@ public interface RSObject extends Entity {
      *
      * @return
      */
-    RSObjectDefinition getDefinition();
+    GameObjectDefinition getDefinition();
 
 }

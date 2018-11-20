@@ -1,7 +1,7 @@
 package org.rhino.rsps.model.entity.actor.transformation;
 
 import java.util.Arrays;
-import java.util.Set;
+import java.util.Queue;
 
 public interface Transformations {
 
@@ -13,20 +13,17 @@ public interface Transformations {
     void add(Transformation transformation);
 
     /**
-     *
      * @param transformation
      * @return
      */
     boolean accepts(Transformation transformation);
 
     /**
-     *
      * @return
      */
-    Set<Transformation> get();
+    Queue<Transformation> get();
 
     /**
-     *
      * @param transformations
      */
     default void add(Transformation... transformations) {

@@ -3,6 +3,9 @@ package org.rhino.rsps.model.item.container;
 import org.rhino.rsps.model.item.Item;
 import org.rhino.rsps.model.item.ItemDefinition;
 
+/**
+ * immutable
+ */
 public class AbstractContainerItem implements ContainerItem {
 
     private final int index;

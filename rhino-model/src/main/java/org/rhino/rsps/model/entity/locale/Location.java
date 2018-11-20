@@ -2,6 +2,8 @@ package org.rhino.rsps.model.entity.locale;
 
 public interface Location {
 
+    int DEFAULT_Z = 0;
+
     /**
      * Gets the absolute coordinates of the location
      * @return
@@ -12,7 +14,7 @@ public interface Location {
      * Gets the region associated with the location
      * @return
      */
-    Location deflate();
+    Location offset();
 
     /**
      * Gets the coordinates relative to the given region
@@ -20,7 +22,7 @@ public interface Location {
      * @param region
      * @return
      */
-    Location deflate(Location region);
+    Location offset(Location region);
 
     /**
      * Copies the location
@@ -80,30 +82,30 @@ public interface Location {
     int y();
 
     /**
-     *
-     * @return
+     * @return the Z coordinate value
      */
     int z();
 
     /**
+     * Sets the X coordinate value
      *
      * @param x
-     * @return
+     * @return this location instance for chaining
      */
-    int x(int x);
+    Location x(int x);
 
     /**
      *
      * @param y
      * @return
      */
-    int y(int y);
+    Location y(int y);
 
     /**
      *
      * @param z
      * @return
      */
-    int z(int z);
+    Location z(int z);
 
 }

@@ -1,6 +1,6 @@
 package org.rhino.rsps.model.entity.object;
 
-public interface RSObjectDefinition {
+public interface GameObjectDefinition {
 
     /**
      * The client id of the object
