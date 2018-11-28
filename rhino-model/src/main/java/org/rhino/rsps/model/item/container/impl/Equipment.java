@@ -5,8 +5,10 @@ import org.rhino.rsps.model.item.container.ObservableContainer;
 
 public class Equipment extends ObservableContainer {
 
-    public Equipment(int capacity) {
-        super(capacity, StackingPolicy.NEVER);
+    public static final int CAPACITY = 24;
+
+    public Equipment() {
+        super(CAPACITY, StackingPolicy.NEVER);
     }
 
 }

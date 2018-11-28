@@ -12,7 +12,7 @@ public class ContainerEntry {
     /**
      * The index in the container
      */
-    private int slot;
+    private int index;
 
     /**
      * The stack size in the container
@@ -20,36 +20,39 @@ public class ContainerEntry {
     private int amount;
 
     /**
+     * The item
+     */
+    private Item item;
+
+    /**
      * the item in the container entry, prioritise items with id of Item.NULL rather than setting as null
      */
-
-    public ContainerEntry(int slot, int amount, Item item) {
-        this.slot = slot;
+    public ContainerEntry(int index, int amount, Item item) {
+        this.index = index;
         this.amount = amount;
         this.item = item;
     }
-    private Item item;
 
     /**
      * Creates a default entry
      *
-     * @param slot
+     * @param index
      */
-    public ContainerEntry(int slot) {
-        this (slot, 0, Item.nullItem());
+    public ContainerEntry(int index) {
+        this (index, 0, Item.nullItem());
     }
 
     /**
-     * Indicates the slot is empty
+     * Indicates the index is empty
      *
      * @return
      */
     public boolean isEmpty() {
-        return item == null || amount == 0 || item.getId() == Item.NULL;
+        return item == null || amount == 0 || item == Item.NULL;
     }
 
     /**
-     * The item in the slot
+     * The item in the index
      *
      * @return
      */
@@ -64,36 +67,27 @@ public class ContainerEntry {
      */
     public ContainerEntry setItem(Item item) {
         if (item == null)
-            item = Item.get(Item.NULL);
+            item = Item.NULL;
         this.item = item;
         return this;
     }
 
     /**
-     * Gets the slot
+     * Gets the index
      *
      * @return
      */
     public int getIndex() {
-        return this.slot;
+        return this.index;
     }
 
     /**
-     * Gets the slot in the container
+     * Sets the index index
      *
-     * @return
+     * @param index
      */
-    public int getSlot() {
-        return slot;
-    }
-
-    /**
-     * Sets the slot index
-     *
-     * @param slot
-     */
-    public ContainerEntry setSlot(int slot) {
-        this.slot = slot;
+    public ContainerEntry setIndex(int index) {
+        this.index = index;
         return this;
     }
 
@@ -132,10 +126,23 @@ public class ContainerEntry {
      */
     public ContainerEntry decreaseAmount(int amount) {
         this.amount -= amount;
-        if (this.amount < 0) {
+        if (this.amount <= 0) {
+            this.setItem(null);
             this.amount = 0;
         }
         return this;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof ContainerEntry) {
+            ContainerEntry o = (ContainerEntry) other;
+            return o.getItem().equals(this.item) && o.getAmount() == this.amount && o.getIndex() == this.index;
+        }
+        else if (other instanceof Item) {
+            return this.item.equals(other);
+        }
+        return false;
     }
 
 }
