@@ -1,10 +1,10 @@
 package org.rhino.rsps.model.entity.actor.player;
 
 import org.rhino.rsps.model.entity.actor.Actor;
-import org.rhino.rsps.model.item.container.Container;
-import org.rhino.rsps.model.item.container.bank.Bank;
-import org.rhino.rsps.model.item.container.equipment.Equipment;
-import org.rhino.rsps.model.item.container.inventory.Inventory;
+import org.rhino.rsps.model.entity.locale.route.RouteFinder;
+import org.rhino.rsps.model.item.container.impl.Bank;
+import org.rhino.rsps.model.item.container.impl.Equipment;
+import org.rhino.rsps.model.item.container.impl.Inventory;
 
 public interface Player extends Actor {
 
@@ -13,7 +13,7 @@ public interface Player extends Actor {
      *
      * @return
      */
-    String getDisplayName();
+    Credentials getCredentials();
 
     /**
      * The player's bank
@@ -35,5 +35,11 @@ public interface Player extends Actor {
      * @return
      */
     Equipment getEquipment();
+
+    /**
+     *
+     * @return
+     */
+    RouteFinder getRouteFinder();
 
 }

@@ -8,9 +8,4 @@ public interface Node {
      */
     int id();
 
-    /**
-     * Destroys the entity
-     */
-    void destroy() throws Exception;
-
 }

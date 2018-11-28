@@ -23,4 +23,12 @@ public interface NPCDefinition {
      */
     String getDescription();
 
+    /**
+     * Gets the size of the NPC, NPC's are always as width as they are tall, so for
+     * example will be 1x1, 2x2, 3x3, ...
+     *
+     * @return
+     */
+    int getSize();
+
 }

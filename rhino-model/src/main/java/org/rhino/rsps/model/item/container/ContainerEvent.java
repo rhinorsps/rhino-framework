@@ -2,28 +2,29 @@ package org.rhino.rsps.model.item.container;
 
 import java.util.Set;
 
-public class ContainerEvent<ITEM extends ContainerItem> {
+public class ContainerEvent {
 
     /**
      * The modified items
      */
-    private final Set<ITEM> modifiedItems;
+    private final Set<ContainerEntry> modifiedItems;
 
     /**
      * The container being modified
      */
-    private final Container<ITEM> container;
+    private final Container container;
 
-    public ContainerEvent(Set<ITEM> modifiedItems, Container<ITEM> container) {
+    public ContainerEvent(Set<ContainerEntry> modifiedItems, Container container) {
         this.modifiedItems = modifiedItems;
         this.container = container;
     }
 
-    public Set<ITEM> getModifiedItems() {
+    public Set<ContainerEntry> getModifiedItems() {
         return modifiedItems;
     }
 
-    public Container<ITEM> getContainer() {
+    public Container getContainer() {
         return container;
     }
+
 }

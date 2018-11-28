@@ -2,35 +2,39 @@ package org.rhino.rsps.model.item.container;
 
 import org.rhino.rsps.model.item.Item;
 
-import java.util.Set;
+import java.util.Iterator;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
-public interface Container<ITEM extends ContainerItem> {
+public interface Container extends Supplier<Stream<ContainerEntry>>, Iterable<ContainerEntry> {
 
     /**
      * Adds an item to the container
      *
      * @param item
+     * @param amount
+     * @return
      */
-    boolean add(Item item);
+    boolean add(Item item, int amount);
+
+    /**
+     * Removes an item from the container
+     *
+     * @param item
+     * @param amount
+     * @return
+     */
+    boolean remove(Item item, int amount);
 
     /**
      * Sets the item at the given getIndex
      *
      * @param item
+     * @param amount
      * @param slot
-     */
-    boolean set(Item item, int slot);
-
-    /**
-     * Clears the container
-     */
-    void clear();
-
-    /**
-     * Gets all the items in the container (null items are returned as id -1)
      * @return
      */
-    Set<ITEM> get();
+    boolean set(Item item, int amount, int slot);
 
     /**
      * Gets the container item at the given getIndex
@@ -38,98 +42,92 @@ public interface Container<ITEM extends ContainerItem> {
      * @param slot
      * @return
      */
-    ITEM get(int slot);
+    ContainerEntry get(int slot);
 
     /**
-     * Gets the size of the container
+     * Sets the item at the given getIndex
+     *
+     * @param entry
      * @return
      */
-    int size();
+    void push(ContainerEntry entry);
+
+    /**
+     * Clears the container
+     */
+    void clear();
+
+    /**
+     * Gets the capacity of the container
+     *
+     * @return
+     */
+    int capacity();
 
     /**
      * Gets the first available item
      *
      * @return
      */
-    default ITEM allocate() {
-        return this.find(ContainerItem.NULL);
+    default ContainerEntry allocate() {
+        return this.find(Item.nullItem());
     }
 
     /**
-     * Swaps the position of 2 items
-     *
-     * @param source
-     * @param target
+     * @return
      */
-    default void swap(int source, int target) {
-        ITEM sourceItem = this.get(source);
-        ITEM targetItem = this.get(target);
-
-        this.set(sourceItem, targetItem.getIndex());
-        this.set(targetItem, sourceItem.getIndex());
-    }
-
-    /**
-     *
-     */
-    default void insert(int source, int target) {
-        throw new UnsupportedOperationException("not yet implemented");
+    default int available() {
+        return (int) this.get().filter(entry -> entry.isEmpty()).count();
     }
 
     /**
      * Gets the amount of items with the given id
      *
-     * @param id
+     * @param item
      * @return
      */
-    default int count(int id) {
-        return this.get().stream().filter(item -> item.getDefinition().getId() == id).mapToInt(item -> item.getStackSize()).sum();
-    }
-
-    /**
-     *
-     * @return
-     */
-    default int free() {
-        return this.count(ContainerItem.NULL);
+    default int count(Item item) {
+        return this.get().filter(entry -> entry.getItem().equals(item)).mapToInt(entry -> entry.getAmount()).sum();
     }
 
     /**
      * Checks to see if the item is in the container
      *
-     * @param id
+     * @param item
      * @param amount
      * @return
      */
-    default boolean contains(int id, int amount) {
-        return this.count(id) >= amount;
+    default boolean contains(Item item, int amount) {
+        return this.count(item) >= amount;
     }
 
     /**
-     * Helper method
+     * Helper method for contains(id, 1)
      *
-     * @param id
+     * @param item
      * @return
      */
-    default boolean contains(int id) {
-        return this.contains(id, 1);
+    default boolean contains(Item item) {
+        return this.contains(item, 1);
     }
 
     /**
-     * Finds the first occurence of the given item id
-     * @param id
+     * Finds the first occurrence of the given item id
+     *
+     * @param item
      * @return
      */
-    default ITEM find(int id) {
-        return this.get().stream().filter(item -> item.getDefinition().getId() == id).findFirst().get();
+    default ContainerEntry find(Item item) {
+        return this.get().filter(slot -> slot.getItem().equals(item)).findFirst().orElse(null);
     }
 
     /**
      * Checks to see if the container is empty
+     *
      * @return
      */
     default boolean isEmpty() {
-        return this.contains(ContainerItem.NULL, this.size());
+        return available() == this.capacity();
     }
 
     /**
@@ -139,6 +137,11 @@ public interface Container<ITEM extends ContainerItem> {
      */
     default boolean isFull() {
         return this.allocate() == null;
+    }
+
+    @Override
+    default Iterator<ContainerEntry> iterator() {
+        return this.get().iterator();
     }
 
 }

@@ -24,26 +24,9 @@ public class ChannelPipelineInitializer extends ChannelInitializer<SocketChannel
     @Override
     protected void initChannel(SocketChannel channel) throws Exception {
         channel.pipeline()
-
-                /**
-                 * Codec for game messages (bytebuf <--> message)
-                 */
                 .addLast("session", new SessionHandler((SessionManager<SocketChannel>) context.getSessionManager()))
-
-                /**
-                 * Codec for game messages (bytebuf <--> message)
-                 */
                 .addLast("packet", new PacketCodec(context.getPacketRepository()))
-
-                /**
-                 * Codec for game messages (bytebuf <--> message)
-                 */
                 .addLast("packet-handler", new PacketHandlerCodec(context.getPacketRepository()))
-
-                /*
-                 * Disconnect channels that have been idle for 30 seconds or
-                 * more
-                 */
                 .addLast("timeout", new IdleStateHandler(30, 0, 0));
     }
 
