@@ -8,13 +8,13 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import org.rhino.rsps.net.AsyncServer;
+import org.rhino.rsps.net.Server;
 import org.rhino.rsps.net.ServerContext;
 import org.rhino.rsps.net.netty.codec.ChannelPipelineInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NettyServer extends AsyncServer<ChannelFuture> {
+public class NettyServer implements Server<ChannelFuture> {
 
     /**
      * The static logger for this class
@@ -52,7 +52,7 @@ public class NettyServer extends AsyncServer<ChannelFuture> {
     }
 
     @Override
-    public ChannelFuture asyncPublish() throws Exception {
+    public ChannelFuture publish() throws Exception {
         try {
             bootstrap.group(boss_group, worker_group)
                     .channel(NioServerSocketChannel.class)
@@ -70,7 +70,7 @@ public class NettyServer extends AsyncServer<ChannelFuture> {
     }
 
     @Override
-    public void asyncClose() throws Exception {
+    public void close() throws Exception {
         worker_group.shutdownGracefully();
         boss_group.shutdownGracefully();
     }

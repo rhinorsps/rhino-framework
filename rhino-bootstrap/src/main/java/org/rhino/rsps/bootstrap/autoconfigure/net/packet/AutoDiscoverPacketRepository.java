@@ -4,17 +4,19 @@ import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.PacketDescriptor;
 import org.rhino.rsps.net.packet.PacketHandler;
 import org.rhino.rsps.net.packet.PacketRepository;
+import org.rhino.rsps.net.packet.handler.InputStreamPacketHandler;
+import org.rhino.rsps.net.packet.handler.OutputStreamPacketHandler;
 import org.rhino.rsps.net.session.SessionContext;
 
 public class AutoDiscoverPacketRepository implements PacketRepository {
 
     @Override
-    public PacketHandler<Packet, Object> getInputStreamHandler(PacketDescriptor packetDescriptor, SessionContext sessionContext) {
+    public InputStreamPacketHandler getInputStreamHandler(PacketDescriptor packetDescriptor, SessionContext sessionContext) {
         return null;
     }
 
     @Override
-    public PacketHandler<Object, Packet> getOutputStreamHandler(PacketDescriptor packetDescriptor, SessionContext sessionContext) {
+    public OutputStreamPacketHandler getOutputStreamHandler(PacketDescriptor packetDescriptor, SessionContext sessionContext) {
         return null;
     }
 

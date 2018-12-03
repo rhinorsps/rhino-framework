@@ -1,12 +1,12 @@
 package org.rhino.rsps.net;
 
-public interface Server extends AutoCloseable {
+public interface Server<T> extends AutoCloseable {
 
     /**
      * Publishes the server
      *
      * @throws Exception
      */
-    void publish() throws Exception;
+    T publish() throws Exception;
 
 }

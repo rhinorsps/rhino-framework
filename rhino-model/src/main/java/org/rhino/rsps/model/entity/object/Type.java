@@ -14,7 +14,12 @@ public enum Type {
 
     private final int id;
 
-    private Type(int id) {
+    Type(int id) {
         this.id = id;
     }
+
+    public int getId() {
+        return id;
+    }
+
 }

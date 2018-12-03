@@ -1,4 +1,6 @@
-package org.rhino.rsps.net;
+package org.rhino.rsps.bootstrap.autoconfigure.net;
+
+import org.rhino.rsps.net.Server;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,17 +23,31 @@ public abstract class AsyncServer<T> implements Server {
      */
     private Future<T> future;
 
-    public AsyncServer() {
-        this (Executors.newSingleThreadExecutor());
+    /**
+     *
+     */
+    private final Server delegate;
+
+    /**
+     * Creates a server wth a single thread executor
+     * @param delegate
+     */
+    public AsyncServer(Server delegate) {
+        this (Executors.newSingleThreadExecutor(), delegate);
     }
 
-    public AsyncServer(ExecutorService executor) {
+    public AsyncServer(ExecutorService executor, Server delegate) {
         this.executor = executor;
+        this.delegate = delegate;
     }
 
-    public abstract T asyncPublish() throws Exception;
+    private T asyncPublish() throws Exception {
 
-    public abstract void asyncClose() throws Exception;
+    }
+
+    private void asyncClose() throws Exception {
+
+    }
 
     @Override
     public void publish() throws Exception {
@@ -51,3 +67,4 @@ public abstract class AsyncServer<T> implements Server {
     }
 
 }
+
