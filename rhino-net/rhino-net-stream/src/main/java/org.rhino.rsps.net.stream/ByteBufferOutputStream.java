@@ -16,6 +16,10 @@ public class ByteBufferOutputStream implements OutputStream {
         this.buffer = ByteBuffer.wrap(data);
     }
 
+    public ByteBufferOutputStream(int capacity) {
+        this(ByteBuffer.allocate(capacity));
+    }
+
     @Override
     public OutputStream write(byte[] data) throws IOException {
         if (data.length > available()) {

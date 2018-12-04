@@ -1,14 +1,13 @@
 package org.rhino.rsps.bootstrap.autoconfigure.net.packet;
 
-import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.PacketDescriptor;
-import org.rhino.rsps.net.packet.PacketHandler;
 import org.rhino.rsps.net.packet.PacketRepository;
 import org.rhino.rsps.net.packet.handler.InputStreamPacketHandler;
 import org.rhino.rsps.net.packet.handler.OutputStreamPacketHandler;
 import org.rhino.rsps.net.session.SessionContext;
 
 public class AutoDiscoverPacketRepository implements PacketRepository {
+
 
     @Override
     public InputStreamPacketHandler getInputStreamHandler(PacketDescriptor packetDescriptor, SessionContext sessionContext) {

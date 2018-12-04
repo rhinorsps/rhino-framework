@@ -53,6 +53,8 @@ public class PacketCodec extends ByteToMessageCodec<Packet> {
                 return in.readUnsignedByte();
             case VARIABLE_16_BIT:
                 return in.readUnsignedShort();
+            case UNDEFINED:
+                return in.capacity();
             default:
                 throw new IllegalStateException("unrecognized packet header");
         }

@@ -29,7 +29,7 @@ public interface PacketDescriptor {
      *
      */
     enum Header {
-        FIXED, VARIABLE_8_BIT, VARIABLE_16_BIT;
+        FIXED, VARIABLE_8_BIT, VARIABLE_16_BIT, UNDEFINED;
     }
 
 }

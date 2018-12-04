@@ -7,14 +7,23 @@ public interface ActionQueue {
      * @param action
      * @return
      */
-    ActionQueue queue(Action action);
+    ActionQueue queue(Action action, Priority priority);
 
     /**
      *
-     * @param action
      * @return
      */
-    Action poll(Action action);
+    Action poll();
+
+    /**
+     *
+     * @return
+     */
+    ActionQueue clear();
+
+    default ActionQueue queue(Action action) {
+        return this.queue(action, Priority.NORMAL);
+    }
 
     /**
      * The priority of an action

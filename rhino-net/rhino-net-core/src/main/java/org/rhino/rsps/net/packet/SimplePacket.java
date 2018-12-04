@@ -4,7 +4,14 @@ import org.rhino.rsps.net.stream.InputStream;
 
 public class SimplePacket implements Packet {
 
+    /**
+     * The readable payload
+     */
     private final InputStream payload;
+
+    /**
+     * The packet descriptor
+     */
     private final PacketDescriptor descriptor;
 
     public SimplePacket(InputStream payload, PacketDescriptor descriptor) {

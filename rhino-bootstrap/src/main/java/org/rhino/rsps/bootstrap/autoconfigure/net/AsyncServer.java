@@ -11,7 +11,7 @@ import java.util.concurrent.Future;
  *
  * @param <T>
  */
-public abstract class AsyncServer<T> implements Server {
+public class AsyncServer<T> implements Server<Future<T>> {
 
     /**
      * The executor for this service
@@ -26,7 +26,7 @@ public abstract class AsyncServer<T> implements Server {
     /**
      *
      */
-    private final Server delegate;
+    private final Server<T> delegate;
 
     /**
      * Creates a server wth a single thread executor
@@ -41,20 +41,12 @@ public abstract class AsyncServer<T> implements Server {
         this.delegate = delegate;
     }
 
-    private T asyncPublish() throws Exception {
-
-    }
-
-    private void asyncClose() throws Exception {
-
-    }
-
     @Override
-    public void publish() throws Exception {
+    public Future<T> publish() throws Exception {
         if (future != null) {
             throw new IllegalStateException("server already running");
         }
-        this.future = this.executor.submit(this::asyncPublish);
+        return this.future = this.executor.submit(delegate::publish);
     }
 
     @Override
@@ -62,7 +54,7 @@ public abstract class AsyncServer<T> implements Server {
         if (future == null) {
             throw new IllegalStateException("server already closed");
         }
-        asyncClose();
+        delegate.close();
         future.cancel(true);
     }
 
