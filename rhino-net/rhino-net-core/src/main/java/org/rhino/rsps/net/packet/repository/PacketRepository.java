@@ -1,7 +1,5 @@
 package org.rhino.rsps.net.packet.repository;
 
-import org.rhino.rsps.net.packet.PacketDescriptor;
-
 public interface PacketRepository<KEY> {
 
     /**
@@ -10,6 +8,6 @@ public interface PacketRepository<KEY> {
      * @param key
      * @return
      */
-    PacketDescriptor getDescriptor(KEY key);
+//    PacketDescriptor getDescriptor(KEY key);
 
 }

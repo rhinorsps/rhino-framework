@@ -1,12 +1,10 @@
 package org.rhino.rsps.net.packet.repository;
 
-import org.rhino.rsps.net.packet.PacketDescriptor;
-import org.rhino.rsps.net.session.SessionContext;
+import org.rhino.rsps.core.session.SessionContext;
 
 public interface StatefulPacketRepository<KEY> {
 
     /**
-     *
      * @param state
      * @return
      */
