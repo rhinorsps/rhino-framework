@@ -1,12 +1,12 @@
 package org.rhino.rsps.net.netty;
 
 
-import org.junit.Ignore;
 import org.junit.Test;
+import org.rhino.rsps.core.session.SessionManager;
+import org.rhino.rsps.net.AsyncServer;
 import org.rhino.rsps.net.Server;
 import org.rhino.rsps.net.ServerContext;
-import org.rhino.rsps.net.packet.PacketRepository;
-import org.rhino.rsps.net.session.SessionManager;
+import org.rhino.rsps.net.packet.repository.StatefulPacketRepository;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -20,11 +20,10 @@ public class NettyServerTest {
      * FIXME: exceptions will never cause this to fail, exceptions are caught and handled internally in netty ...
      */
     @Test
-    @Ignore
     public void testNettyController() throws Exception {
         ServerContext context = new DummyServerContext();
 
-        try (Server nettyServer = new NettyServer(context)) {
+        try (Server nettyServer = new AsyncServer(new NettyServer(context))) {
             nettyServer.publish();
 
             Socket socket = new Socket();
@@ -41,7 +40,7 @@ public class NettyServerTest {
         }
 
         @Override
-        public PacketRepository getPacketRepository() {
+        public StatefulPacketRepository getRepository() {
             return null;
         }
 

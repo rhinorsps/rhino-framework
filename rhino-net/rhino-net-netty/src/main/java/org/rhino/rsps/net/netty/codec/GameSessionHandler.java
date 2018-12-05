@@ -4,21 +4,21 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.util.ReferenceCountUtil;
+import org.rhino.rsps.core.session.Session;
+import org.rhino.rsps.core.session.SessionContext;
+import org.rhino.rsps.core.session.SessionManager;
 import org.rhino.rsps.net.netty.Attributes;
-import org.rhino.rsps.net.session.Session;
-import org.rhino.rsps.net.session.SessionContext;
-import org.rhino.rsps.net.session.SessionManager;
 
 import java.net.InetSocketAddress;
 
-public class SessionHandler extends SimpleChannelInboundHandler<Object> {
+public class GameSessionHandler extends SimpleChannelInboundHandler<Object> {
 
     /**
      * The session manager
      */
     private final SessionManager<SocketChannel> manager;
 
-    public SessionHandler(SessionManager<SocketChannel> manager) {
+    public GameSessionHandler(SessionManager<SocketChannel> manager) {
         this.manager = manager;
     }
 

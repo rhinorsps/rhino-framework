@@ -1,14 +1,12 @@
 package org.rhino.rsps.net.netty;
 
 import io.netty.util.AttributeKey;
-import org.rhino.rsps.net.session.Session;
-import org.rhino.rsps.net.session.SessionContext;
+import org.rhino.rsps.core.session.Session;
+import org.rhino.rsps.core.session.SessionContext;
 
-public final class Attributes {
+public interface Attributes {
 
-    public static final AttributeKey<Session> SESSION = AttributeKey.valueOf(Session.class, "instance");
-    public static final AttributeKey<Session> SESSION_CONTEXT = AttributeKey.valueOf(SessionContext.class, "instance");
-
-    private Attributes() {}
+    AttributeKey<Session> SESSION = AttributeKey.valueOf(Session.class, "instance");
+    AttributeKey<Session> SESSION_CONTEXT = AttributeKey.valueOf(SessionContext.class, "instance");
 
 }

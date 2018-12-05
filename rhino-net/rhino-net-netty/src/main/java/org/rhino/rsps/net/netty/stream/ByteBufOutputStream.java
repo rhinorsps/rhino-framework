@@ -1,6 +1,7 @@
 package org.rhino.rsps.net.netty.stream;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import org.rhino.rsps.net.stream.OutputStream;
 
 import java.io.IOException;
@@ -15,6 +16,15 @@ public class ByteBufOutputStream implements OutputStream {
 
     public ByteBufOutputStream(ByteBuf byteBuf) {
         this.byteBuf = byteBuf;
+    }
+
+    /**
+     * Avoid when possible
+     *
+     * @param capacity
+     */
+    public ByteBufOutputStream(int capacity) {
+        this.byteBuf = Unpooled.buffer(capacity);
     }
 
     @Override

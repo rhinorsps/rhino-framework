@@ -18,6 +18,6 @@ public interface Packet {
      *
      * @return
      */
-    PacketDescriptor getDescriptor();
+    int getOpcode();
 
 }

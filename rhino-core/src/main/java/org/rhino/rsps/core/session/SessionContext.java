@@ -1,4 +1,4 @@
-package org.rhino.rsps.net.session;
+package org.rhino.rsps.core.session;
 
 import java.net.InetSocketAddress;
 
@@ -35,7 +35,7 @@ public interface SessionContext {
      * The state of the connection
      */
     enum State {
-        CONNECTED, AUTHENTICATED, ACTIVE, IDLE, DISCONNECTED;
+        CONNECTED, ACTIVE, IDLE, DISCONNECTED;
     }
 
 }

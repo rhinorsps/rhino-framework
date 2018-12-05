@@ -1,6 +1,5 @@
-package org.rhino.rsps.net.session;
+package org.rhino.rsps.core.session;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
 
@@ -19,14 +18,14 @@ public interface SessionManager<CHANNEL> {
      * @param session
      * @throws Exception
      */
-    void register(Session session) throws Exception;
+    void register(Session<CHANNEL> session) throws Exception;
 
     /**
      *
      * @param session
      * @throws Exception
      */
-    void unregister(Session session) throws Exception;
+    void unregister(Session<CHANNEL> session) throws Exception;
 
     /**
      *
@@ -34,7 +33,7 @@ public interface SessionManager<CHANNEL> {
      * @return
      * @throws Exception
      */
-    CompletableFuture<?> destroy(Session session) throws Exception;
+    CompletableFuture<?> destroy(Session<CHANNEL> session) throws Exception;
 
     /**
      *

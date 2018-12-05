@@ -62,6 +62,8 @@ public interface OutputStream extends ByteStream {
     }
 
     /**
+     * Writes a short (word/2-byte integer) to the output stream
+     *
      * @param value
      * @param endianness
      * @param operand
@@ -85,6 +87,8 @@ public interface OutputStream extends ByteStream {
     }
 
     /**
+     * Writes a medium (3-byte integer) to the stream
+     *
      * @param value
      * @return
      * @throws IOException
@@ -94,6 +98,8 @@ public interface OutputStream extends ByteStream {
     }
 
     /**
+     * Writes an integer (d-word/4-byte integer) to the stream
+     *
      * @param value
      * @return
      * @throws IOException
@@ -115,6 +121,8 @@ public interface OutputStream extends ByteStream {
     }
 
     /**
+     * Writes a long (Q-word/8-byte integer) to the stream.
+     *
      * @param value
      * @return
      * @throws IOException
@@ -136,7 +144,7 @@ public interface OutputStream extends ByteStream {
     }
 
     /**
-     * Writes a string
+     * Writes a string to the stream (terminated by \n or ASCII code 10)
      *
      * @param s
      * @param delimiter

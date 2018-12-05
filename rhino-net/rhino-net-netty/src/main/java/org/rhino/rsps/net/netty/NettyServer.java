@@ -10,7 +10,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import org.rhino.rsps.net.Server;
 import org.rhino.rsps.net.ServerContext;
-import org.rhino.rsps.net.netty.codec.ChannelPipelineInitializer;
+import org.rhino.rsps.net.netty.codec.GamePipelineInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +48,7 @@ public class NettyServer implements Server<ChannelFuture> {
 
     public NettyServer(ServerContext context) {
         this.context = context;
-        this.initializer = new ChannelPipelineInitializer(context);
+        this.initializer = new GamePipelineInitializer(context);
     }
 
     @Override
