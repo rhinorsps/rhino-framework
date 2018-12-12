@@ -1,8 +1,7 @@
-package org.rhino.rsps.net.netty.codec;
+package org.rhino.rsps.bootstrap.netty.codec;
 
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import org.rhino.rsps.core.session.SessionManager;

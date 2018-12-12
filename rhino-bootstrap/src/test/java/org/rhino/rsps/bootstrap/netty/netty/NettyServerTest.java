@@ -1,7 +1,8 @@
-package org.rhino.rsps.net.netty;
+package org.rhino.rsps.bootstrap.netty.netty;
 
 
 import org.junit.Test;
+import org.rhino.rsps.bootstrap.netty.NettyServer;
 import org.rhino.rsps.core.session.SessionManager;
 import org.rhino.rsps.net.AsyncServer;
 import org.rhino.rsps.net.Server;

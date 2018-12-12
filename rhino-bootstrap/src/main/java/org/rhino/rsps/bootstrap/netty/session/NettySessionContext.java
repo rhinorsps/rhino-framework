@@ -1,9 +1,9 @@
-package org.rhino.rsps.net.netty.session;
+package org.rhino.rsps.bootstrap.netty.session;
 
+import org.rhino.rsps.bootstrap.netty.stream.ByteBufInputStreamProvider;
+import org.rhino.rsps.bootstrap.netty.stream.ByteBufOutputStreamProvider;
 import org.rhino.rsps.core.session.AbstractSessionContext;
 import org.rhino.rsps.core.session.SessionManager;
-import org.rhino.rsps.net.netty.stream.ByteBufInputStreamProvider;
-import org.rhino.rsps.net.netty.stream.ByteBufOutputStreamProvider;
 import org.rhino.rsps.net.stream.InputStream;
 import org.rhino.rsps.net.stream.OutputStream;
 

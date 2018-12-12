@@ -1,23 +1,19 @@
 package org.rhino.rsps.net.packet;
 
-
-import org.rhino.rsps.net.stream.ByteStream;
-import org.rhino.rsps.net.stream.InputStream;
-
 public interface Packet {
 
     /**
-     * The packet's payload
-     *
-     * @return
-     */
-    InputStream getPayload();
-
-    /**
-     * The packet's descriptor
+     * The packet's identifier. This contains information in which stage it is expected and what the opcode is.
      *
      * @return
      */
     int getOpcode();
+
+    /**
+     * Gets the packet's payload
+     *
+     * @return
+     */
+    Payload getPayload();
 
 }

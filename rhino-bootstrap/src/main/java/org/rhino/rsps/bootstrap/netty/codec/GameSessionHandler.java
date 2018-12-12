@@ -1,13 +1,13 @@
-package org.rhino.rsps.net.netty.codec;
+package org.rhino.rsps.bootstrap.netty.codec;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.util.ReferenceCountUtil;
+import org.rhino.rsps.bootstrap.netty.Attributes;
 import org.rhino.rsps.core.session.Session;
 import org.rhino.rsps.core.session.SessionContext;
 import org.rhino.rsps.core.session.SessionManager;
-import org.rhino.rsps.net.netty.Attributes;
 
 import java.net.InetSocketAddress;
 
@@ -37,6 +37,7 @@ public class GameSessionHandler extends SimpleChannelInboundHandler<Object> {
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
         Session session = this.manager.createAndRegister((InetSocketAddress) ctx.channel().remoteAddress(), (SocketChannel) ctx.channel());
+        session.getContext().setState(SessionContext.State.HANDSHAKE);
         ctx.channel().attr(Attributes.SESSION).setIfAbsent(session);
     }
 

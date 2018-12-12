@@ -1,4 +1,4 @@
-package org.rhino.rsps.net.netty.session;
+package org.rhino.rsps.bootstrap.netty.session;
 
 import io.netty.channel.socket.SocketChannel;
 import org.rhino.rsps.core.session.AbstractSession;
@@ -29,6 +29,7 @@ public class NettySession extends AbstractSession<SocketChannel> {
 
     @Override
     public CompletableFuture<Session<SocketChannel>> disconnect() throws IOException {
+        this.getContext().setState(SessionContext.State.DISCONNECTED);
         return this.destroy();
     }
 

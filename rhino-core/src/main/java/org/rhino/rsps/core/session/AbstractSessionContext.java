@@ -1,14 +1,8 @@
 package org.rhino.rsps.core.session;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class AbstractSessionContext implements SessionContext {
-
-    /**
-     * This session's state
-     */
-    private final AtomicReference<State> state = new AtomicReference<>();
 
     /**
      * The remote address of the session
@@ -35,13 +29,4 @@ public abstract class AbstractSessionContext implements SessionContext {
         return this.address;
     }
 
-    @Override
-    public State getState() {
-        return this.state.getAcquire();
-    }
-
-    @Override
-    public State setState(State state) {
-        return this.state.getAndSet(state);
-    }
 }
