@@ -2,13 +2,13 @@ package org.rhino.rsps.net.stream.provider;
 
 import org.rhino.rsps.net.stream.OutputStream;
 
-public interface OutputStreamProvider<BUFFER, T extends OutputStream> extends StreamProvider<BUFFER, T> {
+public interface OutputStreamProvider<BUFFER> extends StreamProvider<BUFFER, OutputStream> {
 
     /**
      *
      * @param capacity
      * @return
      */
-    T create(int capacity);
+    OutputStream create(int capacity);
 
 }

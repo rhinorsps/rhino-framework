@@ -7,16 +7,16 @@ import org.rhino.rsps.net.stream.provider.InputStreamProvider;
 /**
  * reservation for future implementations that use pooled buffers if necessary
  */
-public class ByteBufInputStreamProvider implements InputStreamProvider<ByteBuf, ByteBufInputStream> {
+public class ByteBufInputStreamProvider implements InputStreamProvider<ByteBuf> {
 
     @Override
-    public ByteBufInputStream create(ByteBuf byteBuf) {
+    public ByteBufInputStream provide(ByteBuf byteBuf) {
         return new ByteBufInputStream(byteBuf);
     }
 
     @Override
     public ByteBufInputStream wrap(byte[] bytes, int offset, int length) {
-        return this.create(Unpooled.wrappedBuffer(bytes, offset, length));
+        return this.provide(Unpooled.wrappedBuffer(bytes, offset, length));
     }
 
 }

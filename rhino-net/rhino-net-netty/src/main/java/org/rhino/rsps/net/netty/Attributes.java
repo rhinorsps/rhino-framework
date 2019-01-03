@@ -6,7 +6,7 @@ import org.rhino.rsps.core.session.SessionContext;
 
 public interface Attributes {
 
-    AttributeKey<Session> SESSION = AttributeKey.valueOf(Session.class, "instance");
-    AttributeKey<Session> SESSION_CONTEXT = AttributeKey.valueOf(SessionContext.class, "instance");
+    AttributeKey<Session> SESSION = AttributeKey.valueOf(Session.class, "session");
+    AttributeKey<Long> SERVER_KEY = AttributeKey.valueOf(Long.class, "server_key");
 
 }

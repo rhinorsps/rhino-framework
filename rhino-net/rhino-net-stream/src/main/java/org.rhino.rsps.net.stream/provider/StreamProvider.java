@@ -9,6 +9,6 @@ interface StreamProvider<BUFFER, T extends ByteStream> {
      * @param buffer
      * @return
      */
-    T create(BUFFER buffer);
+    T provide(BUFFER buffer);
 
 }

@@ -7,16 +7,16 @@ import org.rhino.rsps.net.stream.provider.OutputStreamProvider;
 /**
  * reservation for future implementations that use pooled buffers if necessary
  */
-public class ByteBufOutputStreamProvider implements OutputStreamProvider<ByteBuf, ByteBufOutputStream> {
+public class ByteBufOutputStreamProvider implements OutputStreamProvider<ByteBuf> {
 
     @Override
-    public ByteBufOutputStream create(ByteBuf byteBuf) {
+    public ByteBufOutputStream provide(ByteBuf byteBuf) {
         return new ByteBufOutputStream(byteBuf);
     }
 
     @Override
     public ByteBufOutputStream create(int capacity) {
-        return this.create(Unpooled.buffer(capacity));
+        return this.provide(Unpooled.buffer(capacity));
     }
 
 }

@@ -28,13 +28,13 @@ public enum Endianness {
     LITTLE_ENDIAN(Endianness::littleEndian),
 
     /**
-     * Byte ordering is offset by 2, so b[0,1,2,3] becomes b[2,3,0,1], this should only be called
-     * for integers (4 bytes)
+     * The most significant byte (MSB) value, 0Ah is offset by 2, so b[0,1,2,3] becomes b[2,3,0,1],
+     * this operation is only available to 32-bit integers (4 bytes)
      */
     MIDDLE_ENDIAN(Endianness::middleEndian),
 
     /**
-     * Reverse of above b[0,1,2,3] becomes b[1,0,3,2]
+     * Reverse of middle-endian b[0,1,2,3] becomes b[1,0,3,2]
      */
     INVERSE_MIDDLE_ENDIAN(LITTLE_ENDIAN.mutator.andThen(MIDDLE_ENDIAN.mutator::apply));
 

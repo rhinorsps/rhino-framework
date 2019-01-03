@@ -2,13 +2,13 @@ package org.rhino.rsps.net.stream.provider;
 
 import org.rhino.rsps.net.stream.InputStream;
 
-public interface InputStreamProvider<BUFFER, T extends InputStream> extends StreamProvider<BUFFER, T> {
+public interface InputStreamProvider<BUFFER> extends StreamProvider<BUFFER, InputStream> {
 
     /**
      *
      * @return
      */
-    default T wrap(byte[] bytes) {
+    default InputStream wrap(byte[] bytes) {
         return this.wrap(bytes, 0, bytes.length);
     }
 
@@ -16,6 +16,6 @@ public interface InputStreamProvider<BUFFER, T extends InputStream> extends Stre
      *
      * @return
      */
-    T wrap(byte[] bytes, int offset, int length);
+    InputStream wrap(byte[] bytes, int offset, int length);
 
 }

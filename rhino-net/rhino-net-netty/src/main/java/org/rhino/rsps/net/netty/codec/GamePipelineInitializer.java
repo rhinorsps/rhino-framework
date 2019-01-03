@@ -26,16 +26,12 @@ public class GamePipelineInitializer extends ChannelInitializer<SocketChannel> {
                 // handles sessions
                 .addLast("session-handler", new GameSessionHandler((SessionManager<SocketChannel>) context.getSessionManager()))
 
-                // handles packets
+                // Converts the raw byte stream into manageable packets
                 .addLast("packet-decoder", new PacketDecoder(context))
                 .addLast("packet-encoder", new PacketEncoder(context))
 
-                // handles object marshalling
-                .addLast("packet-marshaller", new MarshallingDecoder(context))
-                .addLast("packet-unmarshaller", new MarshallingEncoder(context))
-
                 // handles idle connections
-                .addLast("timeout", new IdleStateHandler(30, 0, 0));
+                .addLast("timeout", new IdleStateHandler(15, 15, 15));
     }
 
 }
