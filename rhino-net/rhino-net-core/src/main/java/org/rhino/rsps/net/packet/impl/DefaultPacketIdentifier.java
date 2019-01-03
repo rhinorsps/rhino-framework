@@ -1,6 +1,6 @@
 package org.rhino.rsps.net.packet.impl;
 
-import org.rhino.rsps.net.packet.GameState;
+import org.rhino.rsps.net.packet.ConnectionState;
 import org.rhino.rsps.net.packet.PacketIdentifier;
 
 public class DefaultPacketIdentifier implements PacketIdentifier {
@@ -13,12 +13,12 @@ public class DefaultPacketIdentifier implements PacketIdentifier {
     /**
      * The game state
      */
-    private final GameState state;
+    private final ConnectionState state;
 
-    public DefaultPacketIdentifier(int opcode, GameState state) {
+    public DefaultPacketIdentifier(int opcode, ConnectionState state) {
         this.opcode = opcode;
         this.state = state;
-    }
+}
 
     @Override
     public int hashCode() {
@@ -40,7 +40,7 @@ public class DefaultPacketIdentifier implements PacketIdentifier {
     }
 
     @Override
-    public GameState getState() {
+    public ConnectionState getState() {
         return this.state;
     }
 

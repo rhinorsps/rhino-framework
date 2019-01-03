@@ -4,9 +4,9 @@ import org.rhino.rsps.net.packet.PacketIdentifier;
 import org.rhino.rsps.net.stream.InputStream;
 import org.rhino.rsps.net.stream.OutputStream;
 
-public class SimplePacket extends AbstractPacket {
+public class FixedSizePacket extends AbstractPacket {
 
-    public SimplePacket(PacketIdentifier identifier, InputStream payload) {
+    public FixedSizePacket(PacketIdentifier identifier, InputStream payload) {
         super(identifier, payload);
     }
 
