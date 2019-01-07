@@ -1,9 +1,8 @@
 package org.rhino.rsps.net.packet;
 
 import org.rhino.rsps.net.stream.InputStream;
-import org.rhino.rsps.net.stream.OutputStream;
 
-public interface Packet {
+public interface Packet extends Serializable {
 
     /**
      * The packet's identifier. This contains information in which stage it is expected and what the opcode is.
@@ -20,13 +19,6 @@ public interface Packet {
     InputStream getPayload();
 
     /**
-     * Serializes the packet to the output stream
-     *
-     * @return
-     */
-    void serialize(OutputStream out);
-
-    /**
      * The packet meta data
      */
     enum MetaData {
@@ -37,12 +29,17 @@ public interface Packet {
         EMPTY,
 
         /**
-         * Indicates the length of the packet is stored as a byte header
+         * Indicates the length of the packet is stored as an 8-bit integer header
          */
         SMALL,
 
         /**
-         * Indicates the length of the packet is stored as a short in the header
+         * Indicates the length of the packet is stored as a 16-bit integer in the header
+         */
+        MEDIUM,
+
+        /**
+         * Indicates the length of the packet is stored as a 32-bit integer in the header
          */
         BIG;
 

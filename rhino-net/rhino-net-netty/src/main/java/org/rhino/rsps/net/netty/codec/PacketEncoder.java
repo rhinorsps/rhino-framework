@@ -4,9 +4,16 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 import org.rhino.rsps.net.ServerContext;
+import org.rhino.rsps.net.netty.stream.ByteBufOutputStreamProvider;
 import org.rhino.rsps.net.packet.Packet;
+import org.rhino.rsps.net.stream.provider.OutputStreamProvider;
 
 public class PacketEncoder extends MessageToByteEncoder<Packet> {
+
+    /**
+     * The output stream provider
+     */
+    private final OutputStreamProvider<ByteBuf> outputStreamProvider = new ByteBufOutputStreamProvider();
 
     /**
      * The server context
@@ -17,7 +24,7 @@ public class PacketEncoder extends MessageToByteEncoder<Packet> {
      *
      * @param serverContext
      */
-    public PacketEncoder(ServerContext serverContext) {
+    PacketEncoder(ServerContext serverContext) {
         this.serverContext = serverContext;
     }
 

@@ -11,8 +11,8 @@ import org.rhino.rsps.net.packet.ConnectionState;
 import org.rhino.rsps.net.packet.Packet;
 import org.rhino.rsps.net.packet.PacketDefinition;
 import org.rhino.rsps.net.packet.PacketIdentifier;
-import org.rhino.rsps.net.packet.impl.ReadOnlyPacket;
 import org.rhino.rsps.net.packet.impl.DefaultPacketIdentifier;
+import org.rhino.rsps.net.packet.impl.ReadOnlyPacket;
 import org.rhino.rsps.net.stream.EmptyInputStream;
 import org.rhino.rsps.net.stream.provider.InputStreamProvider;
 
@@ -44,7 +44,7 @@ public class PacketDecoder extends ReplayingDecoder<ConnectionState> {
      *
      * @param serverContext
      */
-    public PacketDecoder(ServerContext serverContext) {
+    PacketDecoder(ServerContext serverContext) {
         super(ConnectionState.HANDSHAKE);
         this.serverContext = serverContext;
     }
@@ -171,8 +171,10 @@ public class PacketDecoder extends ReplayingDecoder<ConnectionState> {
                 return definition.getExpectedLength();
             case SMALL:
                 return in.readUnsignedByte();
-            case BIG:
+            case MEDIUM:
                 return in.readUnsignedShort();
+            case BIG:
+                return in.readInt();
         }
         throw new UnsupportedOperationException("attempting to read unknown packet type");
     }

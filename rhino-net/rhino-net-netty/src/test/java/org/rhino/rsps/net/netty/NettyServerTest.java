@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.rhino.rsps.core.session.SessionManager;
 import org.rhino.rsps.net.Server;
 import org.rhino.rsps.net.ServerContext;
-import org.rhino.rsps.net.packet.PacketRepository;
+import org.rhino.rsps.net.packet.PacketDefinitionRepository;
 
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -48,7 +48,7 @@ public class NettyServerTest {
         }
 
         @Override
-        public PacketRepository getPacketRepository() {
+        public PacketDefinitionRepository getPacketRepository() {
             return null;
         }
     }

@@ -1,7 +1,7 @@
 package org.rhino.rsps.net;
 
 import org.rhino.rsps.core.session.SessionManager;
-import org.rhino.rsps.net.packet.PacketRepository;
+import org.rhino.rsps.net.packet.PacketDefinitionRepository;
 
 import java.net.InetSocketAddress;
 
@@ -26,6 +26,6 @@ public interface ServerContext {
      *
      * @return
      */
-    PacketRepository getPacketRepository();
+    PacketDefinitionRepository getPacketRepository();
 
 }
