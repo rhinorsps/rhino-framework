@@ -53,4 +53,10 @@ public class ByteBufferOutputStream implements OutputStream {
     public byte[] array() {
         return buffer.array();
     }
+
+    @Override
+    public InputStream finish() {
+        return new ByteBufferInputStream(array());
+    }
+
 }

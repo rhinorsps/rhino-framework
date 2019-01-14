@@ -9,6 +9,12 @@ import java.nio.ByteBuffer;
 public interface OutputStream extends ByteStream {
 
     /**
+     *
+     * @return
+     */
+    InputStream finish();
+
+    /**
      * Reads an amount of data
      *
      * @return

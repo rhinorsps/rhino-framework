@@ -2,6 +2,7 @@ package org.rhino.rsps.net.netty.stream;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import org.rhino.rsps.net.stream.InputStream;
 import org.rhino.rsps.net.stream.OutputStream;
 
 import java.io.IOException;
@@ -59,5 +60,10 @@ public class ByteBufOutputStream implements OutputStream {
     @Override
     public byte[] array() {
         return byteBuf.array();
+    }
+
+    @Override
+    public InputStream finish() {
+        return new ByteBufInputStream(this.array());
     }
 }
