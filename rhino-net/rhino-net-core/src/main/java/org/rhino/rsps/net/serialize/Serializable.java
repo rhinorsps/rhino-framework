@@ -1,4 +1,4 @@
-package org.rhino.rsps.net;
+package org.rhino.rsps.net.serialize;
 
 import org.rhino.rsps.net.stream.InputStream;
 import org.rhino.rsps.net.stream.provider.OutputStreamProvider;

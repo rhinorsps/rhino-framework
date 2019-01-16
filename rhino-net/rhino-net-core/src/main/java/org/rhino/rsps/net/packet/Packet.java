@@ -1,6 +1,5 @@
 package org.rhino.rsps.net.packet;
 
-import org.rhino.rsps.net.Serializable;
 import org.rhino.rsps.net.stream.InputStream;
 
 /**
@@ -64,6 +63,5 @@ public interface Packet {
      * @return
      */
     InputStream getPayload();
-
 
 }
