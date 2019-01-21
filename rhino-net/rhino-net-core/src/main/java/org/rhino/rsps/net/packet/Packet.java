@@ -44,20 +44,6 @@ public interface Packet {
     PacketIdentifier getIdentifier();
 
     /**
-     * The packet's length
-     *
-     * @return
-     */
-    int getLength();
-
-    /**
-     * The packet's meta data
-     *
-     * @return
-     */
-    MetaData getMetaData();
-
-    /**
      * The packet's payload
      *
      * @return

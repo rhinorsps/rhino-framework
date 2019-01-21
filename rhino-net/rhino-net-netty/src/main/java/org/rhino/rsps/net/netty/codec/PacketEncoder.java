@@ -7,14 +7,10 @@ import org.rhino.rsps.net.ServerContext;
 import org.rhino.rsps.net.netty.stream.ByteBufOutputStreamProvider;
 import org.rhino.rsps.net.packet.MetaData;
 import org.rhino.rsps.net.packet.Packet;
+import org.rhino.rsps.net.packet.PacketDefinition;
 import org.rhino.rsps.net.stream.provider.OutputStreamProvider;
 
 public class PacketEncoder extends MessageToByteEncoder<Packet> {
-
-    /**
-     * The output stream provider
-     */
-    private final OutputStreamProvider<ByteBuf> outputStreamProvider = new ByteBufOutputStreamProvider();
 
     /**
      * The server context
@@ -38,21 +34,23 @@ public class PacketEncoder extends MessageToByteEncoder<Packet> {
      */
     @Override
     protected void encode(ChannelHandlerContext ctx, Packet packet, ByteBuf out) throws Exception {
+        PacketDefinition definition = this.serverContext.getPacketRepository().getDecodeDefinition(packet.getIdentifier());
+
         // Writes the packet opcode if the packet is not raw
         if (packet.getIdentifier() != null) {
             out.writeByte(packet.getIdentifier().getOpcode());
         }
-                                                        
+
         // Writes the packet size if needed
-        switch (packet.getMetaData()) {
+        switch (definition.getMetaData()) {
             case SMALL:
-                out.writeByte(packet.getLength());
+                out.writeByte(packet.getPayload().available());
                 break;
             case MEDIUM:
-                out.writeShort(packet.getLength());
+                out.writeShort(packet.getPayload().available());
                 break;
             case BIG:
-                out.writeInt(packet.getLength());
+                out.writeInt(packet.getPayload().available());
                 break;
         }
 
