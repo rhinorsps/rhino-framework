@@ -55,13 +55,14 @@ public class PacketDecoder extends ByteToMessageDecoder {
 
     /**
      * Constructs a packet from the given parameters
-     *      *
+     *
      * @param identifier
      * @param length
      * @param in
      * @return
      */
     private Packet constructPacket(PacketIdentifier identifier, int length, InputStream in) {
+        // find a way to construct the packet.. maybe a factory implementation?
         return null;
     }
 
@@ -73,6 +74,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
      * @return
      */
     private PacketIdentifier createIdentifier(ChannelHandlerContext channelContext, int opcode) {
+        // find a way to create an identifier... maybe a factory implementation?
         return null;
     }
 
