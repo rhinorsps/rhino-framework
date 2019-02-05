@@ -22,13 +22,13 @@ public class MarshallingEncoder extends MessageToMessageEncoder<Object> {
     }
 
     @Override
-    protected void encode(ChannelHandlerContext channelHandlerContext, Object o, List<Object> list) throws Exception {
+    protected void encode(ChannelHandlerContext channelHandlerContext, Object o, List<Object> out) throws Exception {
         // no action required if it is already a packet
         if (o instanceof Packet) {
-            list.add(o);
+            out.add(o);
         }
 
-
+        out.add(this.context.getMarshaller().marshal(o));
     }
 
 }
